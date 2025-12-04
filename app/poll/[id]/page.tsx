@@ -1,4 +1,4 @@
-
+"use client";
 import React, { useState, useEffect } from 'react';
 import { TrophyIcon, FireIcon, ShareIcon, CheckIcon, ArrowRightIcon, MapPinIcon, GlobeIcon, XIcon } from '../../../components/ui/icons';
 import { PollData } from '../../../types/poll';
