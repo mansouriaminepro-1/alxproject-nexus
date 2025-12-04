@@ -1,39 +1,101 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import {
+  sanitizePollTitle,
+  sanitizePollDescription,
+  sanitizeItemName,
+  sanitizeItemDescription
+} from '@/lib/sanitize';
+import { applyRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
+import { validateImageFile, sanitizeFilename, getFileExtension } from '@/lib/fileValidation';
 
 export async function POST(request: Request) {
+  // Apply rate limiting (5 requests per hour)
+  const rateLimitResponse = applyRateLimit(request, 'pollCreate');
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+
   try {
     const supabase = await createClient();
 
     // 1. Check Authentication
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
+    let user = null;
+
+    // Try Authorization header first (client-side token)
+    const authHeader = request.headers.get('Authorization');
+    if (authHeader) {
+      const token = authHeader.replace('Bearer ', '');
+      const { data } = await supabase.auth.getUser(token);
+      user = data.user;
+    }
+
+    // Fallback to cookies if no user from header
+    if (!user) {
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    }
+
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized: Please log in first.' }, { status: 401 });
     }
 
-    // 2. Parse Form Data
+    // 2. Parse and Sanitize Form Data
     const formData = await request.formData();
-    const title = formData.get('title') as string;
-    const question = formData.get('question') as string;
+    const rawTitle = formData.get('title') as string;
+    const rawQuestion = formData.get('question') as string;
     const duration = formData.get('duration') as string;
 
-    if (!title) {
+    // Sanitize inputs to prevent XSS attacks
+    const title = sanitizePollTitle(rawTitle);
+    const question = sanitizePollDescription(rawQuestion);
+
+    // Validate title (after sanitization)
+    if (!title || title.length === 0) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
+    }
+
+    // Validate question (after sanitization)
+    // Note: Length already enforced by sanitization function
+
+    // Validate duration
+    if (!['24h', '48h', '1 Week'].includes(duration)) {
+      return NextResponse.json({ error: 'Invalid duration. Must be 24h, 48h, or 1 Week' }, { status: 400 });
+    }
+
+    // Validate item names early
+    const rawItemA_name = formData.get('itemA_name') as string;
+    const rawItemB_name = formData.get('itemB_name') as string;
+
+    // Sanitize item names
+    const itemA_name = sanitizeItemName(rawItemA_name);
+    const itemB_name = sanitizeItemName(rawItemB_name);
+
+    if (!itemA_name || itemA_name.length === 0) {
+      return NextResponse.json({ error: 'Item A name is required' }, { status: 400 });
+    }
+    if (!itemB_name || itemB_name.length === 0) {
+      return NextResponse.json({ error: 'Item B name is required' }, { status: 400 });
     }
 
     // 3. Calculate Closes At
     const now = new Date();
     let closesAt = new Date(now);
+
+    const HOURS_24 = 24;
+    const HOURS_48 = 48;
+    const DAYS_7 = 7;
+
     switch (duration) {
       case '48h':
-        closesAt.setHours(now.getHours() + 48);
+        closesAt.setHours(now.getHours() + HOURS_48);
         break;
       case '1 Week':
-        closesAt.setDate(now.getDate() + 7);
+        closesAt.setDate(now.getDate() + DAYS_7);
         break;
       case '24h':
       default:
-        closesAt.setHours(now.getHours() + 24);
+        closesAt.setHours(now.getHours() + HOURS_24);
         break;
     }
 
@@ -44,7 +106,9 @@ export async function POST(request: Request) {
         owner_id: user.id,
         title,
         description: question,
+        duration,
         closes_at: closesAt.toISOString(),
+        created_at: new Date().toISOString(),
         is_active: true,
       })
       .select()
@@ -52,7 +116,16 @@ export async function POST(request: Request) {
 
     if (pollError) {
       console.error('DB Poll Error:', pollError);
-      throw new Error('Failed to create poll record');
+      console.error('Poll Error Code:', pollError.code);
+      console.error('Poll Error Details:', pollError.details);
+      console.error('Poll Error Hint:', pollError.hint);
+      return NextResponse.json({
+        error: 'Failed to create poll record',
+        details: pollError.message,
+        code: pollError.code,
+        hint: pollError.hint,
+        dbDetails: pollError.details
+      }, { status: 500 });
     }
 
     const pollId = poll.id;
@@ -62,34 +135,51 @@ export async function POST(request: Request) {
     // 5. Process Items & Upload Images
     for (let i = 0; i < contenders.length; i++) {
       const key = contenders[i];
-      const name = formData.get(`item${key}_name`) as string;
-      const desc = formData.get(`item${key}_desc`) as string;
+      const rawName = formData.get(`item${key}_name`) as string;
+      const rawDesc = formData.get(`item${key}_desc`) as string;
       const price = formData.get(`item${key}_price`) as string;
       const imageFile = formData.get(`item${key}_image`) as File | null;
+
+      // Sanitize item data
+      const name = sanitizeItemName(rawName);
+      const desc = sanitizeItemDescription(rawDesc);
 
       let imageUrl = 'https://via.placeholder.com/400?text=No+Image';
 
       // Upload Image if exists
       if (imageFile && imageFile.size > 0) {
-        // Sanitize filename to avoid issues
-        const fileExt = imageFile.name.split('.').pop() || 'jpg';
-        const sanitizedFileName = `${Date.now()}-${key}.${fileExt}`;
-        const filePath = `${pollId}/${sanitizedFileName}`;
-        
-        const { error: uploadError } = await supabase.storage
-          .from('poll_images')
-          .upload(filePath, imageFile, {
-            upsert: true
-          });
+        // Validate image file
+        const validation = validateImageFile(imageFile);
+        if (!validation.valid) {
+          return NextResponse.json({
+            error: `Item ${key} image validation failed: ${validation.error}`
+          }, { status: 400 });
+        }
 
-        if (uploadError) {
-          console.error(`Upload Error for ${key}:`, uploadError);
-          // Fallback to placeholder if upload fails, don't crash the whole poll creation
-        } else {
-          const { data } = supabase.storage
-            .from('poll_images')
-            .getPublicUrl(filePath);
-          imageUrl = data.publicUrl;
+        try {
+          // Sanitize filename to avoid issues
+          const fileExt = getFileExtension(imageFile.name);
+          const sanitizedFileName = sanitizeFilename(`${Date.now()}-${key}.${fileExt}`);
+          const filePath = `${pollId}/${sanitizedFileName}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from('poll-images')  // Changed from 'poll_images' to 'poll-images'
+            .upload(filePath, imageFile, {
+              upsert: true
+            });
+
+          if (uploadError) {
+            console.error(`Upload Error for ${key}:`, uploadError);
+            // Fallback to placeholder if upload fails
+          } else {
+            const { data } = supabase.storage
+              .from('poll-images')
+              .getPublicUrl(filePath);
+            imageUrl = data.publicUrl;
+          }
+        } catch (err) {
+          console.error(`Storage error for ${key}:`, err);
+          // Use placeholder on any error
         }
       }
 

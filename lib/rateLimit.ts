@@ -1,0 +1,116 @@
+/**
+ * Rate Limiter Utility
+ * 
+ * Simple in-memory rate limiter using sliding window algorithm.
+ * Suitable for Vercel serverless functions.
+ * 
+ * Note: Limits are per-instance. For distributed rate limiting across
+ * multiple regions, consider Upstash Redis or Vercel KV.
+ */
+
+interface RateLimitConfig {
+    requests: number;  // Max requests allowed
+    window: number;    // Time window in seconds
+}
+
+interface RequestLog {
+    count: number;
+    resetTime: number;
+}
+
+// In-memory store for rate limit tracking
+const rateLimitStore = new Map<string, RequestLog>();
+
+// Cleanup old entries every 5 minutes
+setInterval(() => {
+    const now = Date.now();
+    for (const [key, value] of rateLimitStore.entries()) {
+        if (now > value.resetTime) {
+            rateLimitStore.delete(key);
+        }
+    }
+}, 5 * 60 * 1000);
+
+/**
+ * Check if a request should be rate limited
+ * @param identifier - Unique identifier (usually IP address)
+ * @param config - Rate limit configuration
+ * @returns Object with success status and rate limit info
+ */
+export function checkRateLimit(
+    identifier: string,
+    config: RateLimitConfig
+): {
+    success: boolean;
+    limit: number;
+    remaining: number;
+    reset: number;
+} {
+    const now = Date.now();
+    const key = `${identifier}`;
+
+    // Get or create request log
+    let log = rateLimitStore.get(key);
+
+    if (!log || now > log.resetTime) {
+        // Create new window
+        log = {
+            count: 0,
+            resetTime: now + config.window * 1000,
+        };
+        rateLimitStore.set(key, log);
+    }
+
+    // Check if limit exceeded
+    if (log.count >= config.requests) {
+        return {
+            success: false,
+            limit: config.requests,
+            remaining: 0,
+            reset: Math.ceil(log.resetTime / 1000),
+        };
+    }
+
+    // Increment count
+    log.count++;
+
+    return {
+        success: true,
+        limit: config.requests,
+        remaining: config.requests - log.count,
+        reset: Math.ceil(log.resetTime / 1000),
+    };
+}
+
+/**
+ * Get client IP address from request
+ * Works with Vercel's proxy headers
+ */
+export function getClientIp(request: Request): string {
+    // Try Vercel's forwarded IP first
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    if (forwardedFor) {
+        return forwardedFor.split(',')[0].trim();
+    }
+
+    // Try real IP header
+    const realIp = request.headers.get('x-real-ip');
+    if (realIp) {
+        return realIp;
+    }
+
+    // Fallback to a default (shouldn't happen on Vercel)
+    return 'unknown';
+}
+
+/**
+ * Predefined rate limit configurations
+ */
+export const RATE_LIMITS = {
+    pollCreate: { requests: 5, window: 3600 },      // 5 requests per hour
+    vote: { requests: 10, window: 3600 },           // 10 requests per hour
+    dashboard: { requests: 60, window: 3600 },      // 60 requests per hour
+    signup: { requests: 3, window: 3600 },          // 3 requests per hour
+    pollView: { requests: 100, window: 3600 },      // 100 requests per hour
+    default: { requests: 30, window: 3600 },        // 30 requests per hour
+} as const;

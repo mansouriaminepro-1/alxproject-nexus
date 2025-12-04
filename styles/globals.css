@@ -1,15 +1,42 @@
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-brand-yellow: #FDD835;
+  --color-brand-black: #111111;
+  --color-brand-gray: #888888;
+  --color-brand-lightGray: #F5F5F5;
+  --color-brand-white: #FFFFFF;
+  --color-brand-blue: #0066FF;
+  --color-brand-red: #C62626;
+  --color-brand-green: #25D366;
+  --color-brand-text: #333333;
+  --color-brand-darkGray: #333333;
+
+  --font-family-sans: 'Outfit', sans-serif;
+  --font-family-serif: 'Merriweather', serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.08);
+  --shadow-plate: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
 
 /* Custom Clip Paths for Footer */
 .clip-curve-top {
-    clip-path: ellipse(150% 100% at 50% 100%);
-}
-.clip-curve-bottom {
-    clip-path: ellipse(150% 100% at 50% 0%);
+  clip-path: ellipse(150% 100% at 50% 100%);
 }
 
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.clip-curve-bottom {
+  clip-path: ellipse(150% 100% at 50% 0%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
