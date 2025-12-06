@@ -46,7 +46,7 @@ const Navbar = () => {
 
             {/* Logo */}
             <a href="/" className="flex items-center gap-2 cursor-pointer">
-              <span className="font-extrabold text-2xl tracking-tight text-brand-black relative">
+              <span className="font-bold text-2xl tracking-tight text-brand-black relative">
                 MenuFight<span className="text-brand-yellow">.</span>
                 {/* Decorative underline curve */}
                 <svg className="absolute -bottom-2 left-0 w-full h-2" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -69,13 +69,13 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-4">
               <button
                 onClick={() => openAuth('login')}
-                className="text-sm font-bold text-brand-black px-4 py-2 hover:text-brand-black/70 transition-colors"
+                className="text-sm font-semibold text-brand-black px-4 py-2 hover:text-brand-black/70 transition-colors"
               >
                 Log in
               </button>
               <button
                 onClick={() => openAuth('signup')}
-                className="text-sm font-bold text-brand-black border-2 border-brand-black rounded-full px-6 py-2 hover:bg-brand-black hover:text-brand-yellow transition-all"
+                className="text-sm font-semibold text-brand-black border-2 border-brand-black rounded-full px-6 py-2 hover:bg-brand-black hover:text-brand-yellow transition-all"
               >
                 Sign Up
               </button>

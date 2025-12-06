@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PollInfoForm from '../../components/create-poll/PollInfoForm';
 import PollItemsForm from '../../components/create-poll/PollItemsForm';
 import SubmitButton from '../../components/create-poll/SubmitButton';
+import ErrorPopup from '../../components/ui/ErrorPopup';
 import { ArrowRightIcon } from '../../components/ui/icons';
 import { createClient } from '../../lib/supabase';
 import DashboardNavbar from '../../components/dashboard/DashboardNavbar';
@@ -15,6 +16,7 @@ export default function CreatePollPage() {
   const [duration, setDuration] = useState('24h');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userData, setUserData] = useState<any>(null);
+  const [errorPopup, setErrorPopup] = useState({ isOpen: false, message: '' });
 
   // State includes 'file' to hold the raw File object for the API
   const [contenderA, setContenderA] = useState({
@@ -37,8 +39,30 @@ export default function CreatePollPage() {
 
   // Fetch user data for navbar
   useEffect(() => {
+    const CACHE_KEY = 'dashboard_data';
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
     const fetchUserData = async () => {
       try {
+        // Check cache first
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          try {
+            const { data: cachedData, timestamp } = JSON.parse(cached);
+            const age = Date.now() - timestamp;
+
+            // Use cache if less than 5 minutes old
+            if (age < CACHE_DURATION) {
+              console.log('Using cached user data');
+              setUserData(cachedData.owner);
+              return;
+            }
+          } catch (e) {
+            console.warn('Cache parse error, fetching fresh data');
+          }
+        }
+
+        // Fetch fresh data if no cache or expired
         const supabase = createClient();
         const { data: { session } } = await supabase.auth.getSession();
 
@@ -53,6 +77,12 @@ export default function CreatePollPage() {
           if (res.ok) {
             const data = await res.json();
             setUserData(data.owner);
+
+            // Update cache
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+              data: data,
+              timestamp: Date.now()
+            }));
           }
         }
       } catch (error) {
@@ -65,12 +95,12 @@ export default function CreatePollPage() {
 
   const handleSubmit = async () => {
     if (!title || !contenderA.name || !contenderB.name) {
-      alert("Please fill in the battle title and contender names.");
+      setErrorPopup({ isOpen: true, message: "Please fill in the battle title and contender names." });
       return;
     }
 
     if (!contenderA.file || !contenderB.file) {
-      alert("Both contenders need an image to start the battle!");
+      setErrorPopup({ isOpen: true, message: "Both contenders need an image to start the battle!" });
       return;
     }
 
@@ -112,8 +142,10 @@ export default function CreatePollPage() {
         const errorData = await response.json();
         console.error('API Error Response:', errorData);
         if (response.status === 401) {
-          alert('Please log in to create a battle.');
-          window.location.href = '/login';
+          setErrorPopup({ isOpen: true, message: 'Please log in to create a battle.' });
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
           return;
         }
         // Show detailed error information
@@ -126,12 +158,15 @@ export default function CreatePollPage() {
 
       const { pollId: poll } = await response.json();
 
+      // Trigger dashboard refresh on next load
+      sessionStorage.setItem('dashboard_refresh', 'true');
+
       // Navigate to the new poll
       window.location.href = `/poll/${poll}`;
 
     } catch (error: any) {
       console.error('Submission error:', error);
-      alert(`Error: ${error.message}`);
+      setErrorPopup({ isOpen: true, message: `Error: ${error.message}` });
     } finally {
       setIsSubmitting(false);
     }
@@ -202,6 +237,14 @@ export default function CreatePollPage() {
 
         </div>
       </div>
+
+      {/* Error Popup */}
+      <ErrorPopup
+        isOpen={errorPopup.isOpen}
+        onClose={() => setErrorPopup({ isOpen: false, message: '' })}
+        message={errorPopup.message}
+        type="error"
+      />
     </div>
   );
 }

@@ -19,8 +19,32 @@ export default function DashboardPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const CACHE_KEY = 'dashboard_data';
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+        const fetchData = async (skipCache = false) => {
             try {
+                // Check cache first (unless explicitly skipped)
+                if (!skipCache) {
+                    const cached = sessionStorage.getItem(CACHE_KEY);
+                    if (cached) {
+                        try {
+                            const { data: cachedData, timestamp } = JSON.parse(cached);
+                            const age = Date.now() - timestamp;
+
+                            // Use cache if less than 5 minutes old
+                            if (age < CACHE_DURATION) {
+                                console.log('Using cached dashboard data');
+                                setData(cachedData);
+                                setLoading(false);
+                                return;
+                            }
+                        } catch (e) {
+                            console.warn('Cache parse error, fetching fresh data');
+                        }
+                    }
+                }
+
                 // Get the Supabase client and session
                 const supabase = createClient();
                 const { data: { session }, error: sessionError } = await supabase.auth.getSession();
@@ -45,6 +69,12 @@ export default function DashboardPage() {
                     if (json && typeof json === 'object') {
                         setData(json);
                         setError(null);
+
+                        // Cache the data
+                        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+                            data: json,
+                            timestamp: Date.now()
+                        }));
                     } else {
                         setError('Invalid data received from server');
                     }
@@ -63,7 +93,15 @@ export default function DashboardPage() {
                 setLoading(false);
             }
         };
-        fetchData();
+
+        // Check if we should force refresh (e.g., after creating a poll)
+        const forceRefresh = sessionStorage.getItem('dashboard_refresh');
+        if (forceRefresh) {
+            sessionStorage.removeItem('dashboard_refresh');
+            fetchData(true); // Skip cache
+        } else {
+            fetchData();
+        }
 
         // Handle hash navigation for Profile link
         const handleHashChange = () => {

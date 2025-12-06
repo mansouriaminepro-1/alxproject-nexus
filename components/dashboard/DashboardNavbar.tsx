@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { createClient } from '../../lib/supabase';
-import { LayoutIcon, UsersIcon } from '../ui/icons';
+import { LayoutIcon, UsersIcon, LogoutIcon } from '../ui/icons';
 
 interface DashboardNavbarProps {
     restaurantName?: string;
@@ -67,8 +67,9 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ restaurantName, owner
                         </a>
                         <button
                             onClick={handleLogout}
-                            className="text-sm font-bold text-gray-600 hover:text-red-500 transition-colors px-4 py-2"
+                            className="flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-red-500 transition-colors px-4 py-2"
                         >
+                            <LogoutIcon className="w-4 h-4" />
                             Log out
                         </button>
                     </div>

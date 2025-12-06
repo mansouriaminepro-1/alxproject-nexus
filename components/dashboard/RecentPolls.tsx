@@ -29,8 +29,7 @@ interface RecentPollsProps {
 const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
-
-
+  const [pollToDelete, setPollToDelete] = useState<string | null>(null); // New state for modal
 
   const handleShare = (e: React.MouseEvent, pollId: string) => {
     e.preventDefault();
@@ -42,26 +41,34 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
     });
   };
 
-  const handleDelete = async (e: React.MouseEvent, pollId: string) => {
+  // Opens the delete confirmation modal
+  const handleDelete = (e: React.MouseEvent, pollId: string) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!confirm('Are you sure you want to delete this battle? This action cannot be undone.')) return;
+    setPollToDelete(pollId);
+  };
 
-    setIsDeleting(pollId);
+  // Executes the deletion
+  const confirmDelete = async () => {
+    if (!pollToDelete) return;
+
+    setIsDeleting(pollToDelete);
     try {
-      const res = await fetch(`/api/polls/${pollId}`, {
+      const res = await fetch(`/api/polls/${pollToDelete}`, {
         method: 'DELETE',
       });
 
       if (res.ok) {
+        // Clear cache to force fresh data on reload
+        sessionStorage.removeItem('dashboard_data');
         window.location.reload();
       } else {
         alert('Failed to delete battle.');
+        setIsDeleting(null);
       }
     } catch (error) {
       console.error('Delete error:', error);
       alert('An error occurred while deleting.');
-    } finally {
       setIsDeleting(null);
     }
   };
@@ -90,8 +97,6 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
           const item1Percent = item1?.percentage || 0;
           const item2Percent = item2?.percentage || 0;
 
-
-
           return (
             <div key={poll.id} className="bg-white rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group border-4 border-white hover:border-brand-yellow/20">
 
@@ -112,7 +117,7 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                       <div className="absolute bottom-4 left-4 right-4 z-10">
                         <p className="text-brand-yellow text-[10px] font-bold uppercase tracking-widest mb-1">Item A</p>
                         <h4 className="text-white font-extrabold text-base leading-tight line-clamp-1">{item1.name}</h4>
-                        <span className="block text-4xl font-black text-brand-yellow mt-1">{item1Percent}%</span>
+                        <span className="block text-4xl font-black text-brand-yellow mt-1">{poll.totalVotes === 0 ? 50 : item1Percent}%</span>
                       </div>
                     </>
                   ) : (
@@ -121,7 +126,7 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                 </div>
 
                 {/* Item 2 Image */}
-                <div className="w-1/2 h-full relative overflow-hidden border-l-2 border-white">
+                <div className="w-1/2 h-full relative overflow-hidden">
                   {item2?.image ? (
                     <>
                       <Image
@@ -133,9 +138,9 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                       <div className="absolute bottom-4 left-4 right-4 z-10">
-                        <p className="text-red-400 text-[10px] font-bold uppercase tracking-widest mb-1">Item B</p>
+                        <p className="text-white/90 text-[10px] font-bold uppercase tracking-widest mb-1">Item B</p>
                         <h4 className="text-white font-extrabold text-base leading-tight line-clamp-1">{item2.name}</h4>
-                        <span className="block text-4xl font-black mt-1" style={{ color: '#C62626' }}>{item2Percent}%</span>
+                        <span className="block text-4xl font-black mt-1 text-[#FB2C36]">{poll.totalVotes === 0 ? 50 : item2Percent}%</span>
                       </div>
                     </>
                   ) : (
@@ -146,7 +151,7 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                 {/* Status Badge */}
                 <div className="absolute top-4 right-4 z-20">
                   {poll.status === 'Active' ? (
-                    <div className="bg-red-500 text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                    <div className="bg-brand-red text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
                       <FireIcon className="w-4 h-4" />
                       <span className="text-xs font-extrabold uppercase tracking-wider">Live</span>
                     </div>
@@ -181,7 +186,7 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                 {/* Stats Row */}
                 <div className="flex items-center gap-4 mb-5 pb-4 border-b border-gray-100">
                   <div className="flex items-center gap-2">
-                    <FireIcon className="w-4 h-4 text-red-500" />
+                    <FireIcon className="w-4 h-4 text-brand-red" />
                     <span className="text-xs font-bold text-gray-600 uppercase tracking-wide">{poll.totalVotes} votes</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -194,11 +199,27 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                 <div className="mb-6">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Vote Distribution</span>
-                    <span className="text-sm font-black text-brand-black">{item1Percent}% vs {item2Percent}%</span>
+                    <span className="text-sm font-black">
+                      <span style={{ color: item1Percent >= item2Percent ? '#FDD835' : '#6B7280' }}>{poll.totalVotes === 0 ? 50 : item1Percent}%</span>
+                      <span className="text-gray-400"> vs </span>
+                      <span style={{ color: item2Percent > item1Percent ? '#FB2C36' : '#6B7280' }}>{poll.totalVotes === 0 ? 50 : item2Percent}%</span>
+                    </span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: '#FFE5E5' }}>
+                  <div className="w-full h-3 rounded-full overflow-hidden shadow-inner flex">
                     <div
-                      style={{ width: `${item1Percent}%`, backgroundColor: '#C62626' }}
+                      style={{
+                        width: `${poll.totalVotes === 0 ? 50 : item1Percent}%`,
+                        background: 'linear-gradient(90deg, #FDD835 0%, #FBC02D 100%)',
+                        boxShadow: '0 0 8px rgba(253, 216, 53, 0.4)'
+                      }}
+                      className="h-full transition-all duration-1000 ease-out"
+                    ></div>
+                    <div
+                      style={{
+                        width: `${poll.totalVotes === 0 ? 50 : item2Percent}%`,
+                        background: 'linear-gradient(90deg, #FB2C36 0%, #D32F2F 100%)',
+                        boxShadow: '0 0 8px rgba(251, 44, 54, 0.4)'
+                      }}
                       className="h-full transition-all duration-1000 ease-out"
                     ></div>
                   </div>
@@ -227,10 +248,10 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
                   <button
                     onClick={(e) => handleDelete(e, poll.id)}
                     disabled={isDeleting === poll.id}
-                    className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:border-red-500 hover:bg-red-50 transition-all group/btn disabled:opacity-50"
+                    className="w-12 h-12 flex items-center justify-center border-2 border-gray-200 rounded-full hover:border-brand-red hover:bg-brand-red/10 transition-all group/btn disabled:opacity-50"
                     title="Delete Battle"
                   >
-                    <TrashIcon className="w-5 h-5 text-gray-400 group-hover/btn:text-red-500" />
+                    <TrashIcon className="w-5 h-5 text-gray-400 group-hover/btn:text-brand-red" />
                   </button>
                 </div>
               </div>
@@ -238,6 +259,42 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
           );
         })}
       </div>
+
+      {/* DELETE CONFIRMATION MODAL */}
+      {pollToDelete && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-brand-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => !isDeleting && setPollToDelete(null)}></div>
+
+          {/* Content */}
+          <div className="relative w-full max-w-sm bg-white rounded-[2rem] p-8 shadow-2xl animate-in zoom-in-95 duration-300 text-center overflow-hidden">
+            <div className="w-16 h-16 bg-red-50 text-brand-red rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100">
+              <TrashIcon className="w-8 h-8" />
+            </div>
+            <h3 className="text-xl font-bold text-brand-black mb-2">Delete Battle?</h3>
+            <p className="text-gray-500 text-sm mb-6">
+              Are you sure you want to delete this battle? This action cannot be undone.
+            </p>
+
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={confirmDelete}
+                disabled={!!isDeleting}
+                className="w-full bg-brand-red text-white py-3 rounded-xl font-bold hover:bg-red-600 transition-colors shadow-lg shadow-brand-red/20 flex items-center justify-center gap-2"
+              >
+                {isDeleting ? 'Deleting...' : 'Yes, Delete Battle'}
+              </button>
+              <button
+                onClick={() => setPollToDelete(null)}
+                disabled={!!isDeleting}
+                className="w-full bg-white border border-gray-200 text-gray-400 py-3 rounded-xl font-bold hover:text-brand-black hover:border-brand-black transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

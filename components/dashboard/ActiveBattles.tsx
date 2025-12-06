@@ -59,7 +59,7 @@ const ActiveBattles = () => {
               <div>
                 <h4 className="font-extrabold text-lg text-brand-black">{poll.title}</h4>
                 <div className="flex items-center gap-3 mt-1">
-                  <div className="flex items-center gap-1 text-xs font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">
+                  <div className="flex items-center gap-1 text-xs font-bold text-brand-red bg-brand-red/10 px-2 py-0.5 rounded-full">
                     <ClockIcon className="w-3 h-3" /> {poll.endsIn}
                   </div>
                   <div className="text-xs font-bold text-gray-400 flex items-center gap-1">

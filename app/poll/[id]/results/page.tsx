@@ -35,7 +35,7 @@ export default function ResultsPage() {
 
     if (id) {
       loadData();
-      const interval = setInterval(loadData, 5000);
+      const interval = setInterval(loadData, 10000); // Poll every 10 seconds instead of 5
       return () => clearInterval(interval);
     }
   }, []);
@@ -69,7 +69,8 @@ export default function ResultsPage() {
   const totalVotes = poll.totalVotes || 0;
   const itemsWithStats = poll.items.map(item => {
     const votes = item.votes || 0;
-    const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+    // Show 50% when no votes, otherwise calculate actual percentage
+    const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 50;
     return { ...item, percentage };
   });
 
@@ -125,15 +126,38 @@ export default function ResultsPage() {
 
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 relative">
 
-              {itemsWithStats.map((item) => {
+              {itemsWithStats.map((item, index) => {
                 const isLeader = item.id === leaderId && totalVotes > 0;
+                // First item gets yellow, second gets red
+                const itemColor = index === 0 ? 'yellow' : 'red';
+                const colorClasses = {
+                  yellow: {
+                    percentage: 'text-brand-yellow',
+                    bar: 'bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600',
+                    barShadow: 'shadow-[0_0_20px_rgba(253,216,53,0.4)]',
+                    badge: 'bg-brand-yellow/10 border-brand-yellow/30',
+                    badgeText: 'text-brand-yellow',
+                    ring: 'ring-brand-yellow/50',
+                    glow: 'shadow-[0_0_30px_rgba(253,216,53,0.3)]'
+                  },
+                  red: {
+                    percentage: 'text-red-500',
+                    bar: 'bg-gradient-to-r from-red-500 via-red-600 to-red-700',
+                    barShadow: 'shadow-[0_0_20px_rgba(239,68,68,0.5)]',
+                    badge: 'bg-red-50 border-red-200',
+                    badgeText: 'text-red-600',
+                    ring: 'ring-red-500/50',
+                    glow: 'shadow-[0_0_30px_rgba(239,68,68,0.4)]'
+                  }
+                };
+                const colors = colorClasses[itemColor];
 
                 return (
                   <div
                     key={item.id}
                     className={`
                                 relative group rounded-[2.5rem] bg-white shadow-card overflow-hidden transition-all duration-500 border-2
-                                ${isLeader ? 'ring-4 ring-brand-yellow border-transparent scale-[1.02] shadow-2xl z-20' : 'border-transparent opacity-90'}
+                                ${isLeader ? `ring-4 ${colors.ring} border-transparent scale-[1.02] shadow-2xl ${colors.glow} z-20` : 'border-transparent hover:shadow-xl'}
                            `}
                   >
                     {/* Image Section */}
@@ -141,24 +165,24 @@ export default function ResultsPage() {
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
 
                       {/* Percentage Overlay */}
                       <div className="absolute bottom-0 left-0 w-full p-8 flex items-end justify-between">
                         <div>
-                          <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-1 leading-tight">{item.name}</h3>
-                          <div className="flex items-center gap-2 text-white/80 font-medium">
-                            {isLeader && <TrophyIcon className="w-5 h-5 text-brand-yellow" />}
-                            {isLeader ? 'Leading the Battle' : 'Trailing Behind'}
+                          <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-1 leading-tight drop-shadow-lg">{item.name}</h3>
+                          <div className={`flex items-center gap-2 font-bold text-sm ${colors.badgeText} bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit`}>
+                            {isLeader && <TrophyIcon className="w-4 h-4" />}
+                            {isLeader ? 'Leading' : 'Trailing'}
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-5xl md:text-6xl font-black text-brand-yellow tracking-tighter">
+                          <div className={`text-6xl md:text-7xl font-black ${colors.percentage} tracking-tighter drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]`}>
                             {item.percentage}%
                           </div>
-                          <div className="text-white/60 font-bold text-sm uppercase tracking-widest">
+                          <div className="text-white/80 font-bold text-sm uppercase tracking-widest mt-1">
                             {item.votes} Votes
                           </div>
                         </div>
@@ -166,24 +190,24 @@ export default function ResultsPage() {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="h-4 bg-gray-100 w-full relative">
+                    <div className="h-5 bg-gray-100 w-full relative overflow-hidden">
                       <div
-                        className={`h-full transition-all duration-1000 ease-out ${isLeader ? 'bg-brand-yellow' : 'bg-gray-400'}`}
+                        className={`h-full transition-all duration-1000 ease-out ${colors.bar} ${colors.barShadow}`}
                         style={{ width: `${item.percentage}%` }}
                       ></div>
                     </div>
 
                     {/* Content Section */}
                     <div className="p-8 relative">
-                      <p className="text-gray-500 font-medium leading-relaxed mb-6">
-                        {item.description}
+                      <p className="text-gray-600 font-medium leading-relaxed mb-6">
+                        {item.description || 'No description available.'}
                       </p>
 
                       {isLeader && (
-                        <div className="bg-brand-yellow/10 border border-brand-yellow/20 rounded-xl p-4 flex items-start gap-3">
-                          <FireIcon className="w-6 h-6 text-brand-yellow shrink-0 mt-1" />
+                        <div className={`${colors.badge} border rounded-xl p-4 flex items-start gap-3`}>
+                          <FireIcon className={`w-6 h-6 ${colors.badgeText} shrink-0 mt-1`} />
                           <div>
-                            <h4 className="font-bold text-brand-black text-sm">Crowd Favorite</h4>
+                            <h4 className={`font-bold ${colors.badgeText} text-sm`}>Crowd Favorite</h4>
                             <p className="text-xs text-gray-600 mt-1">This option is currently winning the hearts (and stomachs) of the voters.</p>
                           </div>
                         </div>

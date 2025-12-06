@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FireIcon, TrophyIcon, UsersIcon, TrendingUpIcon } from '../ui/icons';
+import { FireIcon, TrophyIcon, UsersIcon, TrendingUpIcon, CrownIcon } from '../ui/icons';
 
 interface StatsProps {
   stats?: {
@@ -25,7 +25,7 @@ const Stats: React.FC<StatsProps> = ({ stats }) => {
       value: stats?.menuWins?.toString() || '0',
       trend: 'Success',
       trendUp: true,
-      icon: <TrophyIcon className="w-6 h-6 text-brand-black" />,
+      icon: <CrownIcon className="w-6 h-6 text-brand-black" />,
       color: 'bg-brand-yellow'
     },
     {
@@ -46,7 +46,7 @@ const Stats: React.FC<StatsProps> = ({ stats }) => {
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-md ${stat.color} transition-transform group-hover:scale-110`}>
               {stat.icon}
             </div>
-            <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full ${stat.trendUp ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full ${stat.trendUp ? 'bg-green-100 text-green-700' : 'bg-brand-red/10 text-brand-red'}`}>
               <TrendingUpIcon className="w-3 h-3" />
               {stat.trend}
             </div>

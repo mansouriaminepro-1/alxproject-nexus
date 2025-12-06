@@ -30,7 +30,7 @@ const Features = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif italic text-brand-black mb-4">The Process</h2>
+          <h2 className="text-3xl md:text-4xl font-semibold text-brand-black mb-4">The Process</h2>
           <p className="text-brand-black/60 max-w-2xl mx-auto">From concept to kitchen in four simple steps.</p>
         </div>
 
@@ -42,8 +42,8 @@ const Features = () => {
                 {feature.icon}
               </div>
 
-              <h3 className="text-xl font-extrabold text-brand-black mb-4">{feature.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed font-medium">
+              <h3 className="text-xl font-semibold text-brand-black mb-4">{feature.title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed font-normal">
                 {feature.description}
               </p>
             </div>

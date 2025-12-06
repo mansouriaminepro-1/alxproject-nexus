@@ -48,9 +48,9 @@ const Hero = () => {
                             <span className="font-bold text-brand-black text-xs tracking-wide uppercase">For Restaurants & Cafes</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-brand-black mb-8 leading-[0.95] tracking-tight">
-                            Launch <br />
-                            <span className="relative inline-block z-10">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl text-brand-black mb-8 leading-[0.95] tracking-tight">
+                            <span className="font-light">Launch</span> <br />
+                            <span className="relative inline-block z-10 font-extrabold">
                                 Bestsellers
                                 {/* Underline SVG */}
                                 <svg className="absolute bottom-2 left-0 w-full h-4 text-white -z-10 opacity-70" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -58,14 +58,14 @@ const Hero = () => {
                                 </svg>
                             </span>
                         </h1>
-                        <p className="text-xl text-brand-black/80 mb-10 max-w-lg leading-relaxed font-medium">
+                        <p className="text-xl text-brand-black/80 mb-10 max-w-lg leading-relaxed font-normal">
                             Don't guess what your customers want. Validate menu changes with 1-vs-1 polls before you buy the ingredients.
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                             <button
                                 onClick={handleStartBattle}
-                                className="group bg-brand-black text-white px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider hover:scale-105 transition-all duration-300 flex items-center gap-3 shadow-xl hover:shadow-2xl hover:bg-gray-900"
+                                className="group bg-brand-black text-white px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-wider hover:scale-105 transition-all duration-300 flex items-center gap-3 shadow-xl hover:shadow-2xl hover:bg-gray-900"
                             >
                                 <span className="bg-brand-yellow text-brand-black rounded-full p-1 w-6 h-6 flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-300"><ArrowRightIcon className="w-4 h-4" /></span>
                                 Start a Battle
