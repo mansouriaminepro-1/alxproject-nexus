@@ -1,111 +1,127 @@
 import React from 'react';
-import { ArrowRightIcon, TrophyIcon } from '../ui/icons';
+import { ArrowRightIcon } from '../ui/icons';
 
 const battles = [
     {
-        title: "Burger Battle",
-        winner: "Truffle Smash",
-        loser: "Classic BBQ",
-        stats: "1,240 Votes",
-        status: "Completed",
-        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        winRate: "68%"
+        id: 1,
+        title: "Spicy vs Sweet",
+        restaurant: "Pizza Paradise, NYC",
+        status: "LIVE",
+        leftOption: "Pepperoni Hot",
+        rightOption: "Hawaiian",
+        percentage: 72,
+        barColor: "bg-black",
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
-        title: "Summer Refresh",
-        winner: "Mango Tango",
-        loser: "Berry Blast",
-        stats: "85 Votes",
-        status: "Live Now",
-        image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        winRate: "Leading"
+        id: 2,
+        title: "Cup Chocolate Ice Cream",
+        restaurant: "Bakery Lane, LA",
+        status: "ENDED",
+        leftOption: "Chocolate",
+        rightOption: "Vanilla",
+        percentage: 45,
+        barColor: "bg-[#C62626]", // Custom Brand Red
+        image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGljZSUyMGNyZWFtfGVufDB8fDB8fHww"
     },
     {
-        title: "Vegan Special",
-        winner: "Jackfruit Taco",
-        loser: "Tofu Bowl",
-        stats: "890 Votes",
-        status: "Completed",
-        image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        winRate: "72%"
-    },
-    {
-        title: "Dessert Wars",
-        winner: "Lava Cake",
-        loser: "Cheesecake",
-        stats: "412 Votes",
-        status: "Completed",
-        image: "https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        winRate: "55%"
+        id: 3,
+        title: "Bowl Battle",
+        restaurant: "Fresh & Green, TX",
+        status: "LIVE",
+        leftOption: "Quinoa Power",
+        rightOption: "Rice Delight",
+        percentage: 60,
+        barColor: "bg-brand-yellow",
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
 ];
 
 const BattlesGrid = () => {
-  return (
-    <section id="live-battles" className="py-24 bg-brand-lightGray/30 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20">
-            <div>
-                <h2 className="text-4xl font-bold text-brand-black mb-2">Recent Battles</h2>
-                <p className="text-gray-500">See what other restaurants are validating today.</p>
-            </div>
-            <div className="flex gap-3 mt-6 md:mt-0">
-                {['All', 'Live', 'Completed', 'Trending'].map(cat => (
-                    <button key={cat} className="px-4 py-2 rounded-full border border-gray-200 text-xs font-bold uppercase tracking-wide text-brand-text hover:bg-brand-black hover:text-white transition-colors">
-                        {cat}
-                    </button>
-                ))}
-            </div>
-        </div>
+    return (
+        <section className="py-24 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {battles.map((item, idx) => (
-                <div key={idx} className="bg-white rounded-[2rem] p-6 pt-0 shadow-sm hover:shadow-plate transition-all duration-500 group text-center relative mt-16 border border-gray-50">
-                    
-                    {/* Floating Circular Image (Popping out) */}
-                    <div className="w-40 h-40 mx-auto -mt-12 rounded-full p-1 bg-white shadow-lg mb-4 relative z-10 group-hover:scale-105 transition-transform">
-                        <img src={item.image} className="w-full h-full rounded-full object-cover" alt={item.title}/>
-                        
-                        {/* Status Badge */}
-                        <div className={`absolute top-0 right-0 px-2 py-1 rounded-full text-[10px] font-bold border-2 border-white shadow-sm uppercase tracking-tight ${item.status === 'Live Now' ? 'bg-brand-red text-white animate-pulse' : 'bg-brand-yellow text-brand-black'}`}>
-                            {item.status}
-                        </div>
+                {/* Section Header */}
+                <div className="flex justify-between items-end mb-12 animate-fade-in-up">
+                    <div>
+                        <h2 className="text-[42px] font-black text-brand-black mb-2 tracking-tight">Active Battles</h2>
+                        <p className="text-[16px] text-gray-500 font-medium">See what others are testing right now.</p>
                     </div>
-
-                    <div className="relative z-0">
-                        <h3 className="font-bold text-lg text-brand-black mb-1">{item.title}</h3>
-                        <p className="text-xs text-gray-400 mb-4 font-medium uppercase tracking-widest">{item.winner}</p>
-                        
-                        {/* Win Rate Visual */}
-                        <div className="flex items-center justify-center gap-2 mb-6">
-                            <TrophyIcon className="w-4 h-4 text-brand-yellow" />
-                            <span className="font-extrabold text-2xl text-brand-black">{item.winRate}</span>
-                        </div>
-
-                        <div className="flex justify-between items-center border-t border-dashed border-gray-200 pt-4">
-                            <div className="text-left">
-                                <span className="block text-[10px] text-gray-400 font-bold uppercase">Total Votes</span>
-                                <span className="font-bold text-brand-black text-sm">{item.stats}</span>
-                            </div>
-                            <button className="w-8 h-8 rounded-full bg-brand-lightGray flex items-center justify-center text-brand-black hover:bg-brand-black hover:text-white transition-colors">
-                                <ArrowRightIcon className="w-4 h-4" />
-                            </button>
-                        </div>
-                    </div>
+                    <a href="#" className="hidden md:flex items-center gap-2 text-[#C62626] font-bold hover:gap-3 transition-all">
+                        View all battles <ArrowRightIcon className="w-4 h-4" />
+                    </a>
                 </div>
-            ))}
-        </div>
 
-        <div className="mt-16 text-center">
-            <a href="#" className="inline-block border-b-2 border-brand-black pb-1 text-brand-black font-bold hover:text-brand-yellow hover:border-brand-yellow transition-colors">View Full Dashboard</a>
-        </div>
+                {/* Battles Grid */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {battles.map((battle, idx) => (
+                        <div
+                            key={battle.id}
+                            className="group bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 animate-fade-in-up"
+                            style={{ animationDelay: `${idx * 150}ms` }}
+                        >
+                            {/* Card Image */}
+                            <div className="relative h-56 overflow-hidden">
+                                <img
+                                    src={battle.image}
+                                    alt={battle.title}
+                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                />
 
-      </div>
-    </section>
-  );
+                                {/* Status Badge */}
+                                <div className="absolute top-4 right-4">
+                                    {battle.status === 'LIVE' ? (
+                                        <div className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                                            <span className="relative flex h-2 w-2">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C62626]"></span>
+                                            </span>
+                                            <span className="text-[10px] font-black tracking-widest uppercase text-[#C62626]">LIVE</span>
+                                        </div>
+                                    ) : (
+                                        <div className="bg-brand-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm">
+                                            <span className="text-[10px] font-black tracking-widest uppercase text-brand-yellow">ENDED</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Card Content */}
+                            <div className="p-6">
+                                <div className="mb-6">
+                                    <h3 className="text-xl font-bold text-brand-black mb-1">{battle.title}</h3>
+                                    <p className="text-sm text-gray-500 font-medium">{battle.restaurant}</p>
+                                </div>
+
+                                {/* Progress Bar */}
+                                <div className="w-full h-2.5 bg-gray-100 rounded-full mb-3 overflow-hidden">
+                                    <div
+                                        className={`h-full rounded-full ${battle.barColor}`}
+                                        style={{ width: `${battle.percentage}%` }}
+                                    ></div>
+                                </div>
+
+                                {/* Options Labels */}
+                                <div className="flex justify-between items-center text-xs font-bold">
+                                    <span className="text-brand-black">{battle.leftOption}</span>
+                                    <span className="text-gray-400">{battle.rightOption}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Mobile View All Link */}
+                <div className="mt-8 md:hidden text-center">
+                    <a href="#" className="inline-flex items-center gap-2 text-[#C62626] font-bold">
+                        View all battles <ArrowRightIcon className="w-4 h-4" />
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    );
 };
 
 export default BattlesGrid;

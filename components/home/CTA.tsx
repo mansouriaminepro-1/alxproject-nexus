@@ -14,14 +14,14 @@ const CTA = ({ href = "/create-poll", label = "Get Started Free" }: CTAProps) =>
                 <div className="bg-brand-black rounded-5xl p-12 md:p-24 relative overflow-hidden text-center">
 
                     {/* Decorative Globs */}
-                    <div className="absolute top-0 left-0 w-64 h-64 bg-brand-blue rounded-full filter blur-[80px] opacity-40"></div>
+                    <div className="absolute top-0 left-0 w-64 h-64 bg-brand-red rounded-full filter blur-[80px] opacity-40"></div>
                     <div className="absolute bottom-0 right-0 w-64 h-64 bg-brand-yellow/50 rounded-full filter blur-[80px] opacity-30"></div>
 
                     <div className="relative z-10 max-w-3xl mx-auto">
-                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+                        <h2 className="text-[42px] font-bold text-white mb-8 tracking-tight">
                             Ready to validate your next bestseller?
                         </h2>
-                        <p className="text-gray-400 text-lg mb-10">
+                        <p className="text-gray-400 text-[16px] mb-10">
                             Join the community of restaurateurs who stopped guessing. Start your first battle today.
                         </p>
 

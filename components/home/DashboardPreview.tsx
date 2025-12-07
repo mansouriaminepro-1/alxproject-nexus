@@ -16,7 +16,7 @@ const DashboardPreview = () => {
                         </p>
                     </div>
                     <div className="hidden md:block">
-                        <button className="text-brand-blue font-bold hover:underline">View full case study</button>
+                        <button className="text-brand-red font-bold hover:underline">View full case study</button>
                     </div>
                 </div>
 
@@ -24,7 +24,7 @@ const DashboardPreview = () => {
                 <div className="relative w-full bg-brand-lightGray/20 rounded-5xl p-6 md:p-12 overflow-hidden border border-brand-lightGray shadow-soft">
 
                     {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(#0066FF 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}></div>
+                    <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(#FB2C36 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }}></div>
 
                     {/* The Dashboard UI Container */}
                     <div className="relative bg-white rounded-4xl shadow-card border border-brand-lightGray overflow-hidden max-w-5xl mx-auto">
@@ -50,7 +50,7 @@ const DashboardPreview = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <div className="h-2 w-32 bg-brand-lightGray rounded-full"></div>
-                                    <div className="h-32 w-full bg-brand-blue/5 rounded-xl border-2 border-brand-blue border-dashed flex items-center justify-center text-brand-blue text-sm font-bold">
+                                    <div className="h-32 w-full bg-brand-red/5 rounded-xl border-2 border-brand-red border-dashed flex items-center justify-center text-brand-red text-sm font-bold">
                                         + New Battle
                                     </div>
                                 </div>
@@ -69,16 +69,16 @@ const DashboardPreview = () => {
                                 {/* Battle Card */}
                                 <div className="grid grid-cols-2 gap-4">
                                     {/* Option A - Winner */}
-                                    <div className="group relative rounded-2xl overflow-hidden border-2 border-brand-blue shadow-lg transition-transform hover:scale-[1.02]">
-                                        <div className="absolute top-3 left-3 z-10 bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-bold">Leading</div>
+                                    <div className="group relative rounded-2xl overflow-hidden border-2 border-brand-red shadow-lg transition-transform hover:scale-[1.02]">
+                                        <div className="absolute top-3 left-3 z-10 bg-brand-red text-white px-3 py-1 rounded-full text-xs font-bold">Leading</div>
                                         <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" className="w-full h-40 object-cover" />
                                         <div className="p-4 bg-white">
                                             <div className="flex justify-between items-end mb-2">
                                                 <h4 className="font-bold text-sm text-brand-black">Wagyu Smash</h4>
-                                                <span className="text-xl font-bold text-brand-blue">62%</span>
+                                                <span className="text-xl font-bold text-brand-red">62%</span>
                                             </div>
                                             <div className="w-full bg-brand-lightGray h-2 rounded-full overflow-hidden">
-                                                <div className="w-[62%] h-full bg-brand-blue"></div>
+                                                <div className="w-[62%] h-full bg-brand-red"></div>
                                             </div>
                                         </div>
                                     </div>

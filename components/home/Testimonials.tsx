@@ -36,11 +36,11 @@ const FAQ = () => {
         <section id="faq" className="py-24 bg-white">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-brand-black mb-4">
+                <div className="text-center mb-16 animate-fade-in-up">
+                    <h2 className="text-[42px] font-extrabold text-brand-black mb-4">
                         Frequently Asked Questions
                     </h2>
-                    <p className="text-xl text-gray-600 font-medium">
+                    <p className="text-[16px] text-gray-600 font-medium">
                         Everything you need to know about MenuFight
                     </p>
                 </div>
@@ -49,7 +49,7 @@ const FAQ = () => {
                     {faqs.map((faq, index) => (
                         <div
                             key={index}
-                            className="border-2 border-gray-100 rounded-2xl overflow-hidden hover:border-brand-yellow/30 transition-colors"
+                            className={`border-2 border-gray-100 rounded-2xl overflow-hidden hover:border-brand-yellow/30 transition-colors animate-fade-in-up animation-delay-${(index * 100) + 100}`}
                         >
                             <button
                                 onClick={() => toggleFAQ(index)}
