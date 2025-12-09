@@ -20,7 +20,7 @@ export default function DashboardPage() {
 
     useEffect(() => {
         const CACHE_KEY = 'dashboard_data';
-        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+        const CACHE_DURATION = 5 * 1000; // 5 seconds (Reduced for testing)
 
         const fetchData = async (skipCache = false) => {
             try {

@@ -108,7 +108,7 @@ export function getClientIp(request: Request): string {
  */
 export const RATE_LIMITS = {
     pollCreate: { requests: 10, window: 3600 },     // 10 requests per hour (increased for testing)
-    vote: { requests: 10, window: 3600 },           // 10 requests per hour
+    vote: { requests: 100, window: 3600 },           // 100 requests per hour (increased for testing)
     dashboard: { requests: 300, window: 3600 },     // 300 requests per hour (increased with caching)
     signup: { requests: 3, window: 3600 },          // 3 requests per hour
     pollView: { requests: 500, window: 3600 },      // 500 requests per hour (increased for results page auto-refresh)

@@ -119,25 +119,32 @@ export default function VotePage() {
     const confirmVote = async () => {
         if (hasVoted || !pollId || !pendingVoteId) return;
 
-        // Close confirm modal immediately
+        const itemId = pendingVoteId;
+        // Close confirm modal
         setShowConfirmModal(false);
 
-        const itemId = pendingVoteId;
-
-        // Optimistic UI update
-        setSelectedId(itemId);
-        setHasVoted(true);
-        setShowThankYouModal(true);
-        localStorage.setItem(`menufight_voted_${pollId}`, itemId);
-
         try {
-            await fetch(`/api/polls/${pollId}/vote`, {
+            const res = await fetch(`/api/polls/${pollId}/vote`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ itemId })
             });
+
+            if (res.ok) {
+                // Success - update UI
+                const data = await res.json();
+                setSelectedId(itemId);
+                setHasVoted(true);
+                setShowThankYouModal(true);
+                localStorage.setItem(`menufight_voted_${pollId}`, itemId);
+            } else {
+                // Handle error (rate limit, etc)
+                const errorData = await res.json();
+                alert(errorData.error || 'Failed to submit vote. Please try again.');
+            }
         } catch (e) {
             console.error('Vote failed:', e);
+            alert('A network error occurred. Please check your connection.');
         }
     };
 

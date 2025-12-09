@@ -39,12 +39,16 @@ const battles = [
 
 const BattlesGrid = () => {
     return (
-        <section className="py-24 bg-white">
+        <section id="live-battles" className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Section Header */}
                 <div className="flex justify-between items-end mb-12 animate-fade-in-up">
                     <div>
+                        <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-widest">
+                            <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+                            Live Battles
+                        </div>
                         <h2 className="text-[42px] font-black text-brand-black mb-2 tracking-tight">Active Battles</h2>
                         <p className="text-[16px] text-gray-500 font-medium">See what others are testing right now.</p>
                     </div>

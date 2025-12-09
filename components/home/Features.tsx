@@ -26,6 +26,10 @@ const Features = () => {
 
         {/* Header */}
         <div className="text-center mb-20 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-brand-yellow/10 text-brand-black text-xs font-bold uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-brand-yellow"></span>
+            Features
+          </div>
           <h2 className="text-[42px] font-bold text-brand-black mb-6 tracking-tight">Core Features</h2>
           <p className="text-[16px] text-gray-500 font-normal">Designed for real-world restaurant challenges.</p>
         </div>

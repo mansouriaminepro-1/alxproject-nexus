@@ -1,7 +1,18 @@
 
+'use client';
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
 
 const Footer = () => {
+    const pathname = usePathname();
+
+    // Don't render the footer on dashboard, create-poll, or poll pages
+    if (pathname?.startsWith('/dashboard') ||
+        pathname?.startsWith('/create-poll') ||
+        pathname?.startsWith('/poll')) {
+        return null;
+    }
     return (
         <footer id="contacts" className="relative bg-brand-black text-white pt-32 pb-12 overflow-hidden">
 

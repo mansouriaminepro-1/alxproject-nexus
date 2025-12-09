@@ -25,14 +25,11 @@ const CTA = ({ href = "/create-poll", label = "Get Started Free" }: CTAProps) =>
                             Join the community of restaurateurs who stopped guessing. Start your first battle today.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <a href="/create-poll" className="w-full sm:w-auto bg-brand-yellow hover:bg-white text-brand-black px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-center">
+                            <a href="/create-poll" className="bg-brand-yellow hover:bg-white text-brand-black px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-2">
                                 Get Started Free
                                 <ArrowRightIcon className="w-5 h-5" />
                             </a>
-                            <button className="w-full sm:w-auto bg-transparent border border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold text-lg transition-all">
-                                Book a Demo
-                            </button>
                         </div>
 
                         <p className="mt-8 text-xs text-gray-500 uppercase tracking-widest">No credit card required · Cancel anytime</p>

@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import AuthModal from './auth/AuthModal';
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -38,9 +40,16 @@ const Navbar = () => {
     setIsMenuOpen(false); // Close mobile menu if open
   };
 
+  // Don't render the main navbar on dashboard, create-poll, or poll pages
+  if (pathname?.startsWith('/dashboard') ||
+    pathname?.startsWith('/create-poll') ||
+    pathname?.startsWith('/poll')) {
+    return null;
+  }
+
   return (
     <>
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
+      <nav className={`home-navbar fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
 

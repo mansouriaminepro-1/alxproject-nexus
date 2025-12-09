@@ -24,7 +24,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="how-it-works" className="relative pt-32 pb-20 lg:pt-40 lg:pb-48 overflow-hidden bg-[#FDD835]">
+        <section id="how-it-works" className="relative pt-32 pb-20 lg:pt-40 lg:pb-48 overflow-hidden bg-gradient-to-br from-[#FDD835] via-[#FDD835] to-[#fe4a49]">
 
             {/* Background: Dot Pattern for Texture */}
             <div className="absolute inset-0 pointer-events-none opacity-10 animate-background-move"
@@ -36,7 +36,7 @@ const Hero = () => {
 
             {/* Background: Catchy Animated Gradient Blobs */}
             <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-white/20 rounded-full blur-3xl animate-pulse pointer-events-none mix-blend-overlay"></div>
-            <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-red-400/20 rounded-full blur-3xl pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -49,8 +49,8 @@ const Hero = () => {
                         </div>
 
                         <h1 className="text-[63px] text-brand-black mb-6 leading-[1.1] tracking-tight animate-fade-in-up animation-delay-100">
-                            <span className="font-semibold block">Stop Guessing.</span>
-                            <span className="relative inline-block z-10 font-semibold">
+                            <span className="font-extrabold block">Stop Guessing.</span>
+                            <span className="relative inline-block z-10 font-extrabold">
                                 Start Winning.
                                 {/* Underline SVG */}
                                 <svg className="absolute bottom-2 left-0 w-full h-4 text-white -z-10 opacity-70" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -128,7 +128,7 @@ const Hero = () => {
                             {/* CARD A (Winner) - Foreground Layer */}
                             <div className="absolute top-0 left-[-14px] w-full h-full rounded-[2rem] bg-brand-black shadow-[0_20px_40px_rgba(0,0,0,0.3)] transform -rotate-3 hover:rotate-0 transition-all duration-500 overflow-hidden border-[5px] border-white z-20 group">
                                 <NextImage
-                                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                                    src="/pexels-david-geib-1265112-3220617.jpg"
                                     alt="Truffle Smash"
                                     fill
                                     sizes="(max-width: 768px) 250px, 320px"
@@ -139,7 +139,7 @@ const Hero = () => {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
 
                                 {/* Winner Badge */}
-                                <div className="absolute top-5 left-5 bg-brand-red text-white px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg ring-2 ring-white/20">
+                                <div className="absolute top-5 left-5 bg-brand-yellow text-brand-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg ring-2 ring-white/20">
                                     <TrophyIcon className="w-3.5 h-3.5" />
                                     <span className="text-[10px] font-extrabold uppercase tracking-wider">Winner</span>
                                 </div>
@@ -165,15 +165,9 @@ const Hero = () => {
                                 </div>
                             </div>
 
-                            {/* VS Badge - Floating Center */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30">
-                                <div className="w-16 h-16 bg-brand-yellow rounded-full border-[4px] border-white shadow-[0_10px_30px_rgba(0,0,0,0.2)] flex items-center justify-center animate-[pulse_3s_ease-in-out_infinite]">
-                                    <span className="font-black italic text-2xl text-brand-black pr-0.5">VS</span>
-                                </div>
-                            </div>
 
                             {/* Insight Pop-up - Bottom Right */}
-                            <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-3xl shadow-xl z-30 max-w-[200px] animate-[float_4s_ease-in-out_infinite] hidden md:block border border-gray-100">
+                            <div className="absolute top-[60%] -right-32 -translate-y-1/2 bg-white p-4 rounded-3xl shadow-xl z-30 max-w-[200px] animate-[float_4s_ease-in-out_infinite] hidden md:block border border-gray-100">
                                 <div className="flex items-start gap-3">
                                     <div className="w-8 h-8 rounded-full bg-red-50 text-brand-red flex items-center justify-center shrink-0">
                                         <FireIcon className="w-4 h-4" />

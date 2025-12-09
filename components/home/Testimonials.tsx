@@ -37,6 +37,10 @@ const FAQ = () => {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="text-center mb-16 animate-fade-in-up">
+                    <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-brand-black/5 text-brand-black text-xs font-bold uppercase tracking-widest">
+                        <span className="w-2 h-2 rounded-full bg-brand-black"></span>
+                        Support
+                    </div>
                     <h2 className="text-[42px] font-extrabold text-brand-black mb-4">
                         Frequently Asked Questions
                     </h2>

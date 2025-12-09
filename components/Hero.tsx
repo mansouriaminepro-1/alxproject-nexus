@@ -94,7 +94,7 @@ const Hero = () => {
                             {/* CARD A (Winner) - Foreground Layer */}
                             <div className="absolute top-0 left-[-16px] w-full h-full rounded-[2rem] bg-brand-black shadow-2xl transform -rotate-3 transition-all duration-500 hover:rotate-0 hover:scale-[1.02] hover:-translate-y-2 overflow-hidden border-4 border-white z-20">
                                 <img
-                                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                                    src="https://alxproject-nexus3-583a1fqhc-fbbook404-5356s-projects.vercel.app/pink-burger.png"
                                     alt="Truffle Smash"
                                     className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
                                 />

@@ -39,9 +39,9 @@ const Steps = () => {
 
                         {/* Text Side */}
                         <div className="order-1 lg:order-2">
-                            <div className="flex items-center gap-4 mb-6 animate-fade-in-up">
-                                <div className="h-px w-12 bg-brand-black"></div>
-                                <span className="text-brand-black/60 text-sm font-bold uppercase tracking-widest">Our Methodology</span>
+                            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-black text-white">
+                                <div className="w-2 h-2 rounded-full bg-brand-yellow"></div>
+                                <span className="font-bold text-xs uppercase tracking-widest">Our Methodology</span>
                             </div>
 
                             <h2 className="text-[42px] font-semibold text-brand-black mb-8 leading-tight animate-fade-in-up animation-delay-100">
@@ -85,37 +85,41 @@ const Steps = () => {
 
                         {/* Left: Text Content */}
                         <div className="animate-fade-in-up">
-                            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-brand-yellow/10 text-brand-black text-xs font-bold uppercase tracking-widest">
-                                <span className="w-2 h-2 rounded-full bg-brand-yellow"></span>
+                            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-brand-red/10 text-brand-red text-xs font-bold uppercase tracking-widest">
+                                <span className="w-2 h-2 rounded-full bg-brand-red"></span>
                                 Step 1: The Setup
                             </div>
 
                             <h2 className="text-[42px] font-bold text-brand-black mb-6 leading-[1.1]">
-                                Start a food fight in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-yellow via-yellow-400 to-yellow-500">seconds.</span>
+                                Start a food fight in <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red via-red-500 to-red-600">seconds.</span>
                             </h2>
 
                             <p className="text-[16px] text-gray-500 mb-12 leading-relaxed max-w-xl">
                                 Stop overthinking your menu. Just upload two photos, add a catchy question, and set the duration. It's as easy as posting to Instagram, but with powerful data analytics attached.
                             </p>
 
-                            <div className="grid grid-cols-2 gap-4 mb-10">
-                                <div className="bg-white border border-gray-200 rounded-xl p-6 hover:border-gray-300 transition-colors">
-                                    <div className="w-8 h-8 mb-4">
-                                        <svg className="w-full h-full text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <div className="space-y-6 mb-10">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
+                                        <svg className="w-6 h-6 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                         </svg>
                                     </div>
-                                    <h3 className="font-bold text-brand-black mb-2 text-base">Visual First</h3>
-                                    <p className="text-sm text-gray-500 leading-relaxed">High-res support for mouth-watering presentation.</p>
+                                    <div>
+                                        <h3 className="font-bold text-brand-black mb-1">Visual First</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed">High-res support for mouth-watering presentation.</p>
+                                    </div>
                                 </div>
-                                <div className="bg-white border border-gray-200 rounded-xl p-6 hover:border-gray-300 transition-colors">
-                                    <div className="w-8 h-8 mb-4">
-                                        <svg className="w-full h-full text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
+                                        <svg className="w-6 h-6 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                         </svg>
                                     </div>
-                                    <h3 className="font-bold text-brand-black mb-2 text-base">Drag & Drop</h3>
-                                    <p className="text-sm text-gray-500 leading-relaxed">Seamless uploads from desktop or mobile.</p>
+                                    <div>
+                                        <h3 className="font-bold text-brand-black mb-1">Drag & Drop</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed">Seamless uploads from desktop or mobile.</p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -150,7 +154,7 @@ const Steps = () => {
                                                 <h3 className="text-lg font-bold text-brand-black mb-0.5">Create New Battle</h3>
                                                 <p className="text-[10px] text-gray-500">Upload two menu items and let customers pick the winner</p>
                                             </div>
-                                            <button className="bg-brand-yellow text-brand-black px-4 py-1.5 rounded-lg font-bold uppercase tracking-wider text-[10px] shadow-sm hover:bg-brand-yellow/80 transition-colors">
+                                            <button className="bg-brand-red text-white px-4 py-1.5 rounded-lg font-bold uppercase tracking-wider text-[10px] shadow-sm hover:bg-brand-red/90 transition-colors">
                                                 Launch Battle →
                                             </button>
                                         </div>
@@ -177,11 +181,11 @@ const Steps = () => {
                                         {/* Upload Cards - Landscape Aspect Ratio */}
                                         <div className="grid grid-cols-2 gap-4">
                                             {/* Option A - With Image */}
-                                            <div className="border-2 border-brand-yellow rounded-xl p-3 bg-brand-yellow/5 relative">
-                                                <div className="absolute -top-2 left-3 bg-brand-yellow text-brand-black px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider z-10">
+                                            <div className="border-2 border-brand-red rounded-xl p-3 bg-brand-red/5 relative">
+                                                <div className="absolute -top-2 left-3 bg-brand-red text-white px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider z-10">
                                                     Option A
                                                 </div>
-                                                <div className="aspect-[3/2] bg-white rounded-lg mb-2 overflow-hidden border-2 border-dashed border-brand-yellow/30 relative">
+                                                <div className="aspect-[3/2] bg-white rounded-lg mb-2 overflow-hidden border-2 border-dashed border-brand-red/30 relative">
                                                     <img
                                                         src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=350&fit=crop"
                                                         alt="Truffle Burger"
@@ -219,7 +223,7 @@ const Steps = () => {
                 </div>
             </section>
 
-            {/* SECTION 3: Engage Your Fans (Step 2) - RED THEME, ALTERNATE LAYOUT */}
+            {/* SECTION 3: Engage Your Fans (Step 2) - YELLOW THEME, ALTERNATE LAYOUT */}
             <section className="py-24 bg-white overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -242,8 +246,8 @@ const Steps = () => {
                                     {/* Browser Content - LIVE VOTE */}
                                     <div className="bg-white p-6 relative">
                                         {/* Live Badge */}
-                                        <div className="absolute top-6 right-6 flex items-center gap-1.5 bg-red-50 text-brand-red px-2 py-1 rounded border border-brand-red/10">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse"></div>
+                                        <div className="absolute top-6 right-6 flex items-center gap-1.5 bg-brand-yellow/10 text-brand-black px-2 py-1 rounded border border-brand-yellow/20">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-brand-yellow animate-pulse"></div>
                                             <span className="text-[10px] font-bold uppercase tracking-wider">Ends in 22h</span>
                                         </div>
 
@@ -257,22 +261,22 @@ const Steps = () => {
                                         <div className="grid grid-cols-2 gap-4 relative">
                                             {/* VS Badge Center */}
                                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-gray-100 z-10">
-                                                <span className="text-brand-red font-black text-xs italic">VS</span>
+                                                <span className="text-brand-yellow font-black text-xs italic">VS</span>
                                             </div>
 
                                             {/* Option A */}
                                             <div className="group cursor-pointer">
-                                                <div className="aspect-[4/3] bg-gray-100 rounded-lg mb-3 overflow-hidden border-2 border-transparent group-hover:border-brand-red/30 transition-all relative">
+                                                <div className="aspect-[4/3] bg-gray-100 rounded-lg mb-3 overflow-hidden border-2 border-transparent group-hover:border-brand-yellow/30 transition-all relative">
                                                     <img
-                                                        src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&h=400&fit=crop"
-                                                        alt="Truffle Burger"
+                                                        src="https://images.pexels.com/photos/19671301/pexels-photo-19671301.jpeg"
+                                                        alt="Classic Crispy"
                                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                     />
                                                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent h-16 opacity-60"></div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <h4 className="font-bold text-brand-black text-sm mb-2">Truffle Smash</h4>
-                                                    <button className="w-full border-2 border-brand-red text-brand-red py-1.5 rounded font-bold uppercase tracking-wider text-[10px] hover:bg-brand-red hover:text-white transition-colors">
+                                                    <h4 className="font-bold text-brand-black text-sm mb-2">Classic Crispy</h4>
+                                                    <button className="w-full bg-brand-yellow text-brand-black py-1.5 rounded font-bold uppercase tracking-wider text-[10px] hover:bg-yellow-400 transition-colors shadow-sm">
                                                         Vote
                                                     </button>
                                                 </div>
@@ -280,17 +284,17 @@ const Steps = () => {
 
                                             {/* Option B */}
                                             <div className="group cursor-pointer">
-                                                <div className="aspect-[4/3] bg-gray-100 rounded-lg mb-3 overflow-hidden border-2 border-transparent group-hover:border-brand-red/30 transition-all relative">
+                                                <div className="aspect-[4/3] bg-gray-100 rounded-lg mb-3 overflow-hidden border-2 border-transparent group-hover:border-brand-yellow/30 transition-all relative">
                                                     <img
-                                                        src="/pink-burger.png"
-                                                        alt="Pink Burger"
+                                                        src="https://images.pexels.com/photos/4421615/pexels-photo-4421615.jpeg"
+                                                        alt="Double Smash"
                                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                     />
                                                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent h-16 opacity-60"></div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <h4 className="font-bold text-brand-black text-sm mb-2">Pink Panther</h4>
-                                                    <button className="w-full border-2 border-gray-200 text-gray-400 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] group-hover:border-brand-red group-hover:text-brand-red transition-colors">
+                                                    <h4 className="font-bold text-brand-black text-sm mb-2">Double Smash</h4>
+                                                    <button className="w-full border-2 border-gray-200 text-gray-400 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] group-hover:border-brand-yellow group-hover:text-brand-black transition-colors">
                                                         Vote
                                                     </button>
                                                 </div>
@@ -303,37 +307,43 @@ const Steps = () => {
 
                         {/* Right: Text Content */}
                         <div className="order-1 lg:order-2 animate-fade-in-up animation-delay-100">
-                            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-red-50">
-                                <div className="w-2 h-2 rounded-full bg-brand-red"></div>
+                            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-yellow/10">
+                                <div className="w-2 h-2 rounded-full bg-brand-yellow"></div>
                                 <span className="font-bold text-brand-black text-xs uppercase tracking-widest">STEP 2: THE REACH</span>
                             </div>
 
                             <h2 className="text-[42px] font-bold text-brand-black mb-6 leading-tight">
-                                Turn your regulars into <span className="text-brand-red">promoters.</span>
+                                Turn your regulars into <span className="text-brand-yellow">promoters.</span>
                             </h2>
 
                             <p className="text-[16px] text-gray-500 mb-10 leading-relaxed">
                                 No apps to download. No sign-ups required for voters. Just a simple link or QR code that works instantly on any device. Place it on tables, receipts, or your Instagram story.
                             </p>
 
-                            <div className="grid grid-cols-2 gap-6 mb-8">
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <div className="w-10 h-10 mb-4">
-                                        <svg className="w-full h-full text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v1m6 11h2m-6 0h-2v4m-4.5-16v.01M7 12v4m8-16v.01M12 10v6M6 13l-3 3m10-12L16 1m-3 17l3 3m-12-1l3-3" />
-                                        </svg>
+                            <div className="space-y-6 mb-8">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
+                                        <img
+                                            src="https://img.icons8.com/?size=100&id=2v21YBRbFlfU&format=png&color=000000"
+                                            alt="QR Code"
+                                            className="w-6 h-6 object-contain"
+                                        />
                                     </div>
-                                    <h3 className="font-bold text-brand-black mb-2">Table Talkers</h3>
-                                    <p className="text-sm text-gray-500 leading-relaxed">Auto-generated QR codes ready for print.</p>
+                                    <div>
+                                        <h3 className="font-bold text-brand-black mb-1">Table Talkers</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed">Auto-generated QR codes ready for print.</p>
+                                    </div>
                                 </div>
-                                <div className="bg-gray-50 rounded-2xl p-6">
-                                    <div className="w-10 h-10 mb-4">
-                                        <svg className="w-full h-full text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center shrink-0">
+                                        <svg className="w-6 h-6 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <h3 className="font-bold text-brand-black mb-2">Social Ready</h3>
-                                    <p className="text-sm text-gray-500 leading-relaxed">Optimized links for IG Stories and TikTok.</p>
+                                    <div>
+                                        <h3 className="font-bold text-brand-black mb-1">Social Ready</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed">Optimized links for IG Stories and TikTok.</p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -344,7 +354,6 @@ const Steps = () => {
                                 </svg>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -356,13 +365,13 @@ const Steps = () => {
 
                         {/* Left: Text Content */}
                         <div className="animate-fade-in-up">
-                            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-yellow-50">
-                                <div className="w-2 h-2 rounded-full bg-brand-yellow"></div>
-                                <span className="font-bold text-brand-black text-xs uppercase tracking-widest">STEP 3: THE VERDICT</span>
+                            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-brand-red/10">
+                                <div className="w-2 h-2 rounded-full bg-brand-red"></div>
+                                <span className="font-bold text-brand-red text-xs uppercase tracking-widest">STEP 3: THE VERDICT</span>
                             </div>
 
                             <h2 className="text-[42px] font-bold text-brand-black mb-6 leading-tight">
-                                Data that actually <span className="text-brand-yellow">tastes good.</span>
+                                Data that actually <span className="text-brand-red">tastes good.</span>
                             </h2>
 
                             <p className="text-[16px] text-gray-500 mb-10 leading-relaxed">

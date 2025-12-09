@@ -19,6 +19,10 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: '*.supabase.co',
             },
+            {
+                protocol: 'https',
+                hostname: 'alxproject-nexus3-583a1fqhc-fbbook404-5356s-projects.vercel.app',
+            },
         ],
     },
 };
