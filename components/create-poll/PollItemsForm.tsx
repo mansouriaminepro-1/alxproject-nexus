@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { PhotoIcon, TrashIcon } from '../ui/icons';
 
+// 🔹 Types
 // Extended interface to include the File object
 interface Contender {
   id: string;
@@ -19,10 +20,13 @@ interface PollItemsFormProps {
   setContenderB: (c: Contender) => void;
 }
 
+// 🔹 Component
 const PollItemsForm: React.FC<PollItemsFormProps> = ({ contenderA, contenderB, setContenderA, setContenderB }) => {
+  // 🔹 State (Refs)
   const fileInputARef = useRef<HTMLInputElement>(null);
   const fileInputBRef = useRef<HTMLInputElement>(null);
 
+  // 🔹 Handlers
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, contender: 'A' | 'B') => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -46,6 +50,7 @@ const PollItemsForm: React.FC<PollItemsFormProps> = ({ contenderA, contenderB, s
     }
   };
 
+  // 🔹 Helpers
   const renderContenderCard = (contender: Contender, label: 'A' | 'B', setter: (c: Contender) => void, fileRef: React.RefObject<HTMLInputElement | null>) => (
     <div className="bg-white rounded-[2.5rem] shadow-plate overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 group">
       {/* Image Area */}
@@ -129,6 +134,7 @@ const PollItemsForm: React.FC<PollItemsFormProps> = ({ contenderA, contenderB, s
     </div>
   );
 
+  // 🔹 Render
   return (
     <div className="relative">
       <div className="flex items-center justify-between mb-8 px-2">

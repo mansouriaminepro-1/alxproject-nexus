@@ -1,9 +1,10 @@
-
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/middleware/rateLimit';
 
+// --- POST Handler ---
 export async function POST(request: Request) {
   // Apply rate limiting (3 requests per hour)
   const rateLimitResponse = applyRateLimit(request, 'signup');

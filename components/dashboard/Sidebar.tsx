@@ -3,12 +3,15 @@
 import React from 'react';
 import { LayoutIcon, ClockIcon, PieChartIcon, SettingsIcon } from '../ui/icons';
 
+// 🔹 Types
 interface SidebarProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
 
+// 🔹 Component
 const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
+  // 🔹 Data
   const menuItems = [
     { id: 'overview', label: 'Dashboard', icon: <LayoutIcon className="w-5 h-5" /> },
     { id: 'history', label: 'Battle History', icon: <ClockIcon className="w-5 h-5" /> },
@@ -16,6 +19,7 @@ const Sidebar = ({ activeTab, onTabChange }: SidebarProps) => {
     { id: 'settings', label: 'Settings', icon: <SettingsIcon className="w-5 h-5" /> },
   ];
 
+  // 🔹 Render
   return (
     <aside className="w-full h-full flex flex-col bg-white border-r border-gray-100 pt-8 pb-6 px-4">
       {/* Navigation */}

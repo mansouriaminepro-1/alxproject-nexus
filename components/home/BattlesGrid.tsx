@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRightIcon } from '../ui/icons';
 
+// 🔹 Data & Constants
 const battles = [
     {
         id: 1,
@@ -37,7 +38,9 @@ const battles = [
     }
 ];
 
+// 🔹 Component
 const BattlesGrid = () => {
+    // 🔹 Render
     return (
         <section id="live-battles" className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

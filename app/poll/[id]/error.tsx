@@ -1,5 +1,6 @@
 'use client';
 
+// --- Component ---
 export default function PollError({
     error,
     reset,

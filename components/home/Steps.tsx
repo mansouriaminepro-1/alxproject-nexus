@@ -3,7 +3,9 @@ import React from 'react';
 import NextImage from 'next/image';
 import { ArrowRightIcon, PhotoIcon, BarChartIcon, ShareIcon, CheckIcon } from '../ui/icons';
 
+// 🔹 Component
 const Steps = () => {
+    // 🔹 Render
     return (
         <>
             {/* SECTION 1: Our Methodology (Original Section - Restored) */}

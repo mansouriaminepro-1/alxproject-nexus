@@ -1,9 +1,11 @@
 'use server'
 
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
+// --- Types ---
 interface CreatePollInput {
     title: string;
     question: string;
@@ -22,6 +24,7 @@ interface CreatePollInput {
     };
 }
 
+// --- Action ---
 export async function createPollAction(input: CreatePollInput) {
     const supabase = await createClient();
 

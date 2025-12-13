@@ -1,4 +1,5 @@
 
+// 🔹 Core Poll Types
 export interface PollItem {
   id: string;
   name: string;
@@ -8,6 +9,7 @@ export interface PollItem {
   votes: number;
 }
 
+// 🔹 Aggregated Poll Data
 export interface PollData {
   id: string;
   title: string;

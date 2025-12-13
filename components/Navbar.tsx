@@ -1,23 +1,28 @@
 "use client";
 
+// 🔹 Imports
 import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import AuthModal from './auth/AuthModal';
 
+// 🔹 Component
 const Navbar = () => {
+  // 🔹 State
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
+  // 🔹 Effects
   useEffect(() => {
+    // Scroll handler for navbar styling
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
 
-    // Listen for custom events to open auth modal from other components (like Hero)
+    // Auth modal event listener
     const handleAuthEvent = (e: Event) => {
       const customEvent = e as CustomEvent;
       const mode = customEvent.detail === 'login' ? 'login' : 'signup';
@@ -28,18 +33,21 @@ const Navbar = () => {
 
     window.addEventListener('open-auth-modal', handleAuthEvent);
 
+    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('open-auth-modal', handleAuthEvent);
     };
   }, []);
 
+  // 🔹 Handlers
   const openAuth = (mode: 'login' | 'signup') => {
     setAuthMode(mode);
     setIsAuthOpen(true);
     setIsMenuOpen(false); // Close mobile menu if open
   };
 
+  // 🔹 Logic (Conditional Rendering)
   // Don't render the main navbar on dashboard, create-poll, or poll pages
   if (pathname?.startsWith('/dashboard') ||
     pathname?.startsWith('/create-poll') ||
@@ -47,6 +55,7 @@ const Navbar = () => {
     return null;
   }
 
+  // 🔹 Render
   return (
     <>
       <nav className={`home-navbar fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>

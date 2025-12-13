@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import { ArrowRightIcon } from '../ui/icons';
 import { createClient } from '../../lib/supabase';
 
+// 🔹 Component
 const LoginForm = () => {
+  // 🔹 State
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 🔹 Handlers
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
@@ -42,6 +45,7 @@ const LoginForm = () => {
     }
   };
 
+  // 🔹 Render
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (

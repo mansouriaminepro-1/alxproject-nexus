@@ -4,7 +4,8 @@
  * Validates file uploads for security and quality
  */
 
-// Allowed image MIME types
+// 🔹 Configuration
+// Allowed image MIME types for upload validation
 const ALLOWED_IMAGE_TYPES = [
     'image/jpeg',
     'image/jpg',
@@ -16,16 +17,20 @@ const ALLOWED_IMAGE_TYPES = [
 // Max file size: 5MB
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
 
+// 🔹 Types
 export interface FileValidationResult {
     valid: boolean;
     error?: string;
 }
 
 /**
- * Validate an uploaded image file
+ * Validate an uploaded image file.
+ * Checks for existence, size, MIME type, and extension matching.
+ * 
  * @param file - The file to validate
  * @returns Validation result with error message if invalid
  */
+// 🔹 Validation Functions
 export function validateImageFile(file: File | null): FileValidationResult {
     // Check if file exists
     if (!file || file.size === 0) {
@@ -74,10 +79,13 @@ export function validateImageFile(file: File | null): FileValidationResult {
 }
 
 /**
- * Sanitize filename to prevent path traversal and special characters
+ * Sanitize filename to prevent path traversal and special characters.
+ * Replaces non-alphanumeric characters with underscores.
+ * 
  * @param filename - Original filename
  * @returns Sanitized filename
  */
+// 🔹 Helper Functions
 export function sanitizeFilename(filename: string): string {
     // Remove path separators and special characters
     return filename

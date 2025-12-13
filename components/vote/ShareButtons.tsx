@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { ShareIcon, XIcon, LinkIcon, CheckIcon } from '../ui/icons';
 
+// 🔹 Types
 interface ShareButtonsProps {
     pollId: string;
     pollTitle: string;
 }
 
+// 🔹 Component
 const ShareButtons: React.FC<ShareButtonsProps> = ({ pollId, pollTitle }) => {
+    // 🔹 State
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [copied, setCopied] = useState(false);
 
+    // 🔹 Data
     const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/poll/${pollId}` : '';
     const shareText = `Vote now: ${pollTitle}`;
 
+    // 🔹 Handlers
     const handleCopyLink = async () => {
         try {
             await navigator.clipboard.writeText(shareUrl);
@@ -83,6 +88,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ pollId, pollTitle }) => {
         }
     ];
 
+    // 🔹 Render
     return (
         <div className="relative">
             {/* Share Button */}

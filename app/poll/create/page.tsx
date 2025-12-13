@@ -1,7 +1,8 @@
-
+// --- Imports ---
 import PollCreateForm from '../../../components/forms/PollCreateForm';
 import { ArrowRightIcon } from '../../../components/ui/icons';
 
+// --- Component ---
 export default function CreatePollPage() {
   return (
     <div className="min-h-screen bg-white pt-28 pb-24 relative overflow-hidden font-sans">

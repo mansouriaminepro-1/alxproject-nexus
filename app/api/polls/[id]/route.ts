@@ -1,10 +1,12 @@
-
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/middleware/rateLimit';
 
+// --- Configuration ---
 export const dynamic = 'force-dynamic';
 
+// --- GET Handler ---
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   // Apply rate limiting (100 requests per hour)
   const rateLimitResponse = applyRateLimit(request, 'pollView');
@@ -117,6 +119,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
+// --- DELETE Handler ---
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const supabase = await createClient();

@@ -1,17 +1,22 @@
 "use client";
 
+// 🔹 Imports
 import React, { useEffect, useState } from 'react';
 import { ShareIcon, CheckIcon, ArrowRightIcon, MapPinIcon, GlobeIcon, TrophyIcon, FireIcon } from '../../../../components/ui/icons';
 import { PollData } from '../../../../types/poll';
 import UnifiedNavbar from '../../../../components/commons/UnifiedNavbar';
 
+// 🔹 Constants
 const API_URL = '';
 
+// 🔹 Component
 export default function ResultsPage() {
+  // 🔹 State
   const [poll, setPoll] = useState<PollData | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
+  // 🔹 Effects
   useEffect(() => {
     const pathSegments = window.location.pathname.split('/');
     const id = pathSegments[2];
@@ -40,6 +45,7 @@ export default function ResultsPage() {
     }
   }, []);
 
+  // 🔹 Handlers
   const handleShare = () => {
     const url = window.location.href.replace('/results', '');
     navigator.clipboard.writeText(url).then(() => {
@@ -48,6 +54,7 @@ export default function ResultsPage() {
     });
   };
 
+  // 🔹 Loading State
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center">
@@ -57,6 +64,7 @@ export default function ResultsPage() {
     );
   }
 
+  // 🔹 Error State (Not Found)
   if (!poll) {
     return (
       <div className="min-h-screen bg-white pt-32 px-4 flex flex-col items-center justify-center text-center">
@@ -66,16 +74,21 @@ export default function ResultsPage() {
     );
   }
 
+  // 🔹 Render Logic
   const totalVotes = poll.totalVotes || 0;
+
+  // Calculate percentages with a visual fallback
   const itemsWithStats = poll.items.map(item => {
     const votes = item.votes || 0;
-    // Show 50% when no votes, otherwise calculate actual percentage
+    // Fallback: Show 50% when no votes exist to maintain visual balance
     const percentage = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 50;
     return { ...item, percentage };
   });
 
+  // Identify the current winner
   const leaderId = itemsWithStats.sort((a, b) => b.votes - a.votes)[0]?.id;
 
+  // 🔹 UI Render
   return (
     <>
       <UnifiedNavbar />

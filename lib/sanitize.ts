@@ -6,11 +6,14 @@
  */
 
 /**
- * Remove HTML tags and dangerous characters from input
+ * Remove HTML tags and dangerous characters from input.
+ * Defense against XSS.
+ * 
  * @param input - Raw user input
  * @param maxLength - Maximum allowed length
  * @returns Sanitized string
  */
+// 🔹 Core Sanitization
 export function sanitizeInput(input: string, maxLength: number = 500): string {
     if (!input) return '';
 
@@ -22,10 +25,12 @@ export function sanitizeInput(input: string, maxLength: number = 500): string {
 }
 
 /**
- * Sanitize poll title (max 100 characters)
+ * Sanitize poll title (max 100 characters).
+ * 
  * @param title - Raw poll title
  * @returns Sanitized title
  */
+// 🔹 Field-Specific Sanitizers
 export function sanitizePollTitle(title: string): string {
     return sanitizeInput(title, 100);
 }

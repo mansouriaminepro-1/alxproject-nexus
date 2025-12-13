@@ -1,12 +1,7 @@
-/**
- * Rate Limiting Middleware
- * 
- * Helper function to apply rate limiting to API routes
- */
-
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIp, RATE_LIMITS } from '../rateLimit';
 
+// 🔹 Types
 type RateLimitKey = keyof typeof RATE_LIMITS;
 
 /**
@@ -14,6 +9,14 @@ type RateLimitKey = keyof typeof RATE_LIMITS;
  * Returns a NextResponse with 429 status if limit exceeded
  * Returns null if request is allowed
  */
+/**
+ * Apply rate limiting to an API route.
+ * Returns a NextResponse with 429 status if limit exceeded, or null if allowed.
+ * 
+ * @param request - The incoming request
+ * @param limitKey - The rate limit configuration key
+ */
+// 🔹 Middleware Logic
 export function applyRateLimit(
     request: Request,
     limitKey: RateLimitKey = 'default'
@@ -51,6 +54,13 @@ export function applyRateLimit(
 /**
  * Get rate limit headers to add to successful responses
  */
+/**
+ * Get rate limit headers to add to successful responses.
+ * 
+ * @param request - The incoming request
+ * @param limitKey - The rate limit configuration key
+ */
+// 🔹 Helpers
 export function getRateLimitHeaders(
     request: Request,
     limitKey: RateLimitKey = 'default'

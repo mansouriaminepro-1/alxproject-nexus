@@ -8,6 +8,7 @@
  * multiple regions, consider Upstash Redis or Vercel KV.
  */
 
+// 🔹 Types
 interface RateLimitConfig {
     requests: number;  // Max requests allowed
     window: number;    // Time window in seconds
@@ -18,6 +19,7 @@ interface RequestLog {
     resetTime: number;
 }
 
+// 🔹 Storage
 // In-memory store for rate limit tracking
 const rateLimitStore = new Map<string, RequestLog>();
 
@@ -32,11 +34,14 @@ setInterval(() => {
 }, 5 * 60 * 1000);
 
 /**
- * Check if a request should be rate limited
+ * Check if a request should be rate limited.
+ * Uses a sliding window algorithm.
+ * 
  * @param identifier - Unique identifier (usually IP address)
  * @param config - Rate limit configuration
  * @returns Object with success status and rate limit info
  */
+// 🔹 Core Logic
 export function checkRateLimit(
     identifier: string,
     config: RateLimitConfig
@@ -83,9 +88,10 @@ export function checkRateLimit(
 }
 
 /**
- * Get client IP address from request
- * Works with Vercel's proxy headers
+ * Get client IP address from request.
+ * Compatible with Vercel's proxy headers.
  */
+// 🔹 Helpers
 export function getClientIp(request: Request): string {
     // Try Vercel's forwarded IP first
     const forwardedFor = request.headers.get('x-forwarded-for');
@@ -104,13 +110,14 @@ export function getClientIp(request: Request): string {
 }
 
 /**
- * Predefined rate limit configurations
+ * Predefined rate limit configurations for different app actions.
  */
+// 🔹 Configuration
 export const RATE_LIMITS = {
-    pollCreate: { requests: 10, window: 3600 },     // 10 requests per hour (increased for testing)
-    vote: { requests: 100, window: 3600 },           // 100 requests per hour (increased for testing)
-    dashboard: { requests: 300, window: 3600 },     // 300 requests per hour (increased with caching)
-    signup: { requests: 3, window: 3600 },          // 3 requests per hour
-    pollView: { requests: 500, window: 3600 },      // 500 requests per hour (increased for results page auto-refresh)
-    default: { requests: 30, window: 3600 },        // 30 requests per hour
+    pollCreate: { requests: 150, window: 3600 },    // 150 requests per hour
+    vote: { requests: 500, window: 3600 },          // 500 requests per hour
+    dashboard: { requests: 1000, window: 3600 },    // 1000 requests per hour
+    signup: { requests: 10, window: 3600 },         // 10 requests per hour
+    pollView: { requests: 2000, window: 3600 },     // 2000 requests per hour
+    default: { requests: 300, window: 3600 },       // 300 requests per hour
 } as const;

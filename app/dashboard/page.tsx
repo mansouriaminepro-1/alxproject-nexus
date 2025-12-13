@@ -1,5 +1,6 @@
 "use client";
 
+// --- Imports ---
 import React, { useState, useEffect } from 'react';
 import { PlusIcon } from '../../components/ui/icons';
 import BattleHistory from '../../components/dashboard/BattleHistory';
@@ -8,10 +9,10 @@ import DashboardNavbar from '../../components/dashboard/DashboardNavbar';
 import OverviewTab from '../../components/dashboard/tabs/OverviewTab';
 import AnalyticsTab from '../../components/dashboard/tabs/AnalyticsTab';
 import SettingsTab from '../../components/dashboard/tabs/SettingsTab';
-
 import { createClient } from '@/lib/supabase';
 import { DashboardResponse } from '../../types/api';
 
+// --- Component ---
 export default function DashboardPage() {
     const [activeTab, setActiveTab] = useState('overview');
     const [data, setData] = useState<DashboardResponse | null>(null);
@@ -19,8 +20,11 @@ export default function DashboardPage() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        // --- Configuration ---
         const CACHE_KEY = 'dashboard_data';
         const CACHE_DURATION = 5 * 1000; // 5 seconds (Reduced for testing)
+
+        // --- Data Fetching ---
 
         const fetchData = async (skipCache = false) => {
             try {
@@ -103,6 +107,7 @@ export default function DashboardPage() {
             fetchData();
         }
 
+        // --- Event Handlers ---
         // Handle hash navigation for Profile link
         const handleHashChange = () => {
             const hash = window.location.hash.replace('#', '');
@@ -119,6 +124,7 @@ export default function DashboardPage() {
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
+    // --- Render Logic ---
     const renderContent = () => {
         if (loading) {
             return (
@@ -172,6 +178,7 @@ export default function DashboardPage() {
         }
     }
 
+    // --- Render ---
     return (
         <div className="min-h-screen bg-[#FDFDFD] font-sans flex flex-col">
             {/* Dashboard Navbar */}

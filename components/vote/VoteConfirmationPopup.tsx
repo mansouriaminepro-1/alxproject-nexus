@@ -1,6 +1,7 @@
 import React from 'react';
 import { CheckIcon, XIcon, ArrowRightIcon, ShareIcon } from '../ui/icons';
 
+// 🔹 Types
 interface VoteConfirmationPopupProps {
     isOpen: boolean;
     onClose: () => void;
@@ -9,6 +10,7 @@ interface VoteConfirmationPopupProps {
     onShare: () => void;
 }
 
+// 🔹 Component
 const VoteConfirmationPopup: React.FC<VoteConfirmationPopupProps> = ({
     isOpen,
     onClose,
@@ -16,6 +18,7 @@ const VoteConfirmationPopup: React.FC<VoteConfirmationPopupProps> = ({
     pollId,
     onShare
 }) => {
+    // 🔹 Render
     if (!isOpen) return null;
 
     return (

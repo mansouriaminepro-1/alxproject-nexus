@@ -1,6 +1,8 @@
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 
+// --- PUT Handler ---
 export async function PUT(request: Request) {
     try {
         const supabase = await createClient();

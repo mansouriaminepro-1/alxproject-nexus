@@ -1,13 +1,15 @@
-
 import React from 'react';
 import { ArrowRightIcon } from '../ui/icons';
 
+// 🔹 Types
 interface CTAProps {
     href?: string;
     label?: string;
 }
 
+// 🔹 Component
 const CTA = ({ href = "/create-poll", label = "Get Started Free" }: CTAProps) => {
+    // 🔹 Render
     return (
         <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
             <div className="max-w-7xl mx-auto">

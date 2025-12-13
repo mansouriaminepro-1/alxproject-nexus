@@ -1,8 +1,9 @@
-
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/middleware/rateLimit';
 
+// --- GET Handler ---
 export async function GET(request: Request) {
   // Apply rate limiting (60 requests per hour)
   const rateLimitResponse = applyRateLimit(request, 'dashboard');

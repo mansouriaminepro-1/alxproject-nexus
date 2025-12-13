@@ -1,11 +1,14 @@
 import React from 'react';
 import { ClockIcon } from '../../ui/icons';
 
+// 🔹 Types
 interface AnalyticsTabProps {
     setActiveTab: (tab: string) => void;
 }
 
+// 🔹 Component
 const AnalyticsTab: React.FC<AnalyticsTabProps> = ({ setActiveTab }) => {
+    // 🔹 Render
     return (
         <div className="flex flex-col items-center justify-center h-[60vh] text-center animate-in zoom-in-95 duration-500">
             <div className="w-24 h-24 bg-brand-yellow/10 rounded-full flex items-center justify-center mb-6 text-brand-yellow">

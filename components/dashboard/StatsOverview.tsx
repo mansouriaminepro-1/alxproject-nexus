@@ -1,7 +1,9 @@
 import React from 'react';
 import { FireIcon, TrophyIcon, UsersIcon, TrendingUpIcon } from '../ui/icons';
 
+// 🔹 Component
 const StatsOverview = () => {
+  // 🔹 Data
   const stats = [
     {
       label: 'Total Votes',
@@ -29,6 +31,7 @@ const StatsOverview = () => {
     }
   ];
 
+  // 🔹 Render
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       {stats.map((stat, idx) => (

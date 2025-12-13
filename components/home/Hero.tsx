@@ -4,7 +4,10 @@
 import NextImage from 'next/image';
 import { ArrowRightIcon, TrophyIcon, FireIcon } from '../ui/icons';
 
+// 🔹 Component
+
 const Hero = () => {
+    // 🔹 Handlers
     const handleStartBattle = async () => {
         // Check if user is authenticated
         try {
@@ -23,6 +26,8 @@ const Hero = () => {
         }
     };
 
+
+    // 🔹 Render
     return (
         <section id="how-it-works" className="relative pt-32 pb-20 lg:pt-40 lg:pb-48 overflow-hidden bg-gradient-to-br from-[#FDD835] via-[#FDD835] to-[#fe4a49]">
 

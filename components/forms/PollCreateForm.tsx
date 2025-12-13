@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { UploadIcon, PhotoIcon, TrashIcon, CalendarIcon, ClockIcon, ArrowRightIcon } from '../ui/icons';
 
+// 🔹 Types
 interface Contender {
     id: string;
     name: string;
@@ -11,7 +12,9 @@ interface Contender {
     image: string | null;
 }
 
+// 🔹 Component
 const PollCreateForm = () => {
+    // 🔹 State
     // Pre-filled data for better UX/Demo flow
     const [title, setTitle] = useState('The Ultimate Burger Battle');
     const [question, setQuestion] = useState('Which one makes you hungrier?');
@@ -37,6 +40,7 @@ const PollCreateForm = () => {
     const fileInputARef = useRef<HTMLInputElement>(null);
     const fileInputBRef = useRef<HTMLInputElement>(null);
 
+    // 🔹 Handlers
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, contender: 'A' | 'B') => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
@@ -89,6 +93,7 @@ const PollCreateForm = () => {
         setIsSubmitting(false);
     };
 
+    // 🔹 Render
     return (
         <div className="space-y-8 pb-12">
 
@@ -333,8 +338,8 @@ const PollCreateForm = () => {
                                     key={d}
                                     onClick={() => setDuration(d)}
                                     className={`py-4 rounded-2xl text-sm font-bold transition-all border-2 ${duration === d
-                                            ? 'bg-brand-black text-brand-yellow border-brand-black shadow-lg transform -translate-y-1'
-                                            : 'bg-white text-gray-500 border-gray-100 hover:border-gray-200 hover:bg-gray-50'
+                                        ? 'bg-brand-black text-brand-yellow border-brand-black shadow-lg transform -translate-y-1'
+                                        : 'bg-white text-gray-500 border-gray-100 hover:border-gray-200 hover:bg-gray-50'
                                         }`}
                                 >
                                     {d}

@@ -1,7 +1,9 @@
-'use client';
+"use client";
 
+// 🔹 Imports
 import React from 'react';
 
+// 🔹 Types & Interfaces
 interface ErrorBoundaryProps {
     children: React.ReactNode;
 }
@@ -11,20 +13,25 @@ interface ErrorBoundaryState {
     error: Error | null;
 }
 
+// 🔹 Component
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
     constructor(props: ErrorBoundaryProps) {
         super(props);
         this.state = { hasError: false, error: null };
     }
 
+    // 🔹 Lifecycle Methods
     static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+        // Update state so the next render will show the fallback UI.
         return { hasError: true, error };
     }
 
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+        // You can also log the error to an error reporting service here
         console.error('Error caught by boundary:', error, errorInfo);
     }
 
+    // 🔹 Render
     render() {
         if (this.state.hasError) {
             return (

@@ -1,18 +1,23 @@
+"use client";
 
-'use client';
-
+// 🔹 Imports
 import React from 'react';
 import { usePathname } from 'next/navigation';
 
+// 🔹 Component
 const Footer = () => {
+    // 🔹 Hooks
     const pathname = usePathname();
 
+    // 🔹 Logic (Conditional Rendering)
     // Don't render the footer on dashboard, create-poll, or poll pages
     if (pathname?.startsWith('/dashboard') ||
         pathname?.startsWith('/create-poll') ||
         pathname?.startsWith('/poll')) {
         return null;
     }
+
+    // 🔹 Render
     return (
         <footer id="contacts" className="relative bg-brand-black text-white pt-32 pb-12 overflow-hidden">
 

@@ -1,5 +1,6 @@
 'use client';
 
+// --- Component ---
 export default function DashboardError({
     error,
     reset,

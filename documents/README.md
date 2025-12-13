@@ -63,6 +63,18 @@ This directory contains comprehensive documentation for the MenuFight platform's
 
 ---
 
+### 5. [challenges_solutions.md](./challenges_solutions.md)
+**🛠 Challenges, Solutions & Best Practices**
+
+- Design challenges (Food vs. Tech)
+- Database & Security learning curve
+- Backend efficiency & Deployment steps
+- Vote integrity solutions
+
+**Use this when:** Reviewing the project's development journey and technical decisions.
+
+---
+
 ## 🗂️ Database Tables Overview
 
 | Table | Purpose | Key Relationships |

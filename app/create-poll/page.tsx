@@ -1,5 +1,6 @@
 'use client';
 
+// --- Imports ---
 import React, { useState, useEffect } from 'react';
 import PollInfoForm from '../../components/create-poll/PollInfoForm';
 import PollItemsForm from '../../components/create-poll/PollItemsForm';
@@ -9,8 +10,9 @@ import { ArrowRightIcon } from '../../components/ui/icons';
 import { createClient } from '../../lib/supabase';
 import DashboardNavbar from '../../components/dashboard/DashboardNavbar';
 
-
+// --- Page Component ---
 export default function CreatePollPage() {
+  // --- State ---
   const [title, setTitle] = useState('');
   const [question, setQuestion] = useState('');
   const [duration, setDuration] = useState('24h');
@@ -37,6 +39,7 @@ export default function CreatePollPage() {
     file: null as File | null
   });
 
+  // --- Effects ---
   // Fetch user data for navbar
   useEffect(() => {
     const CACHE_KEY = 'dashboard_data';
@@ -93,6 +96,7 @@ export default function CreatePollPage() {
     fetchUserData();
   }, []);
 
+  // --- Event Handlers ---
   const handleSubmit = async () => {
     if (!title || !contenderA.name || !contenderB.name) {
       setErrorPopup({ isOpen: true, message: "Please fill in the battle title and contender names." });
@@ -172,6 +176,7 @@ export default function CreatePollPage() {
     }
   };
 
+  // --- Render ---
   return (
     <div className="min-h-screen bg-white font-sans">
       {/* Dashboard Navbar */}

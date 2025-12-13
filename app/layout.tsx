@@ -1,18 +1,22 @@
+// --- Imports ---
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../styles/globals.css';
 
+// --- Metadata ---
 export const metadata = {
   title: 'MenuFight',
   description: 'Validate your menu changes with 1-vs-1 polls.',
 };
 
+// --- Types ---
 interface RootLayoutProps {
   children?: React.ReactNode;
   showNavbar?: boolean;
   showFooter?: boolean;
 }
 
+// --- Root Component ---
 export default function RootLayout({
   children,
   showNavbar = true,

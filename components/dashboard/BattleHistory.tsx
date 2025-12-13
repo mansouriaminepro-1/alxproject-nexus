@@ -3,12 +3,15 @@ import React from 'react';
 import Image from 'next/image';
 import { TrophyIcon, CheckIcon, ArrowRightIcon } from '../ui/icons';
 
+// 🔹 Types
 interface BattleHistoryProps {
   polls: any[];
   fullPage?: boolean;
 }
 
+// 🔹 Component
 const BattleHistory: React.FC<BattleHistoryProps> = ({ polls, fullPage = false }) => {
+  // 🔹 Render
   return (
     <div className={`bg-white rounded-[2.5rem] border border-gray-100 shadow-card overflow-hidden ${fullPage ? '' : 'h-full'}`}>
       <div className="p-8 pb-4 border-b border-gray-100 flex justify-between items-center">

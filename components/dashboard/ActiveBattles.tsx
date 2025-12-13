@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { ClockIcon, FireIcon, ArrowRightIcon } from '../ui/icons';
 
+// 🔹 Data
 const activePolls = [
   {
     id: 'battle-123',
@@ -37,7 +38,9 @@ const activePolls = [
   }
 ];
 
+// 🔹 Component
 const ActiveBattles = () => {
+  // 🔹 Render
   return (
     <div className="mb-12">
       <div className="flex justify-between items-end mb-6">

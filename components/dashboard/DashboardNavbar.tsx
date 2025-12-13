@@ -4,12 +4,15 @@ import React from 'react';
 import { createClient } from '../../lib/supabase';
 import { LayoutIcon, UsersIcon, LogoutIcon } from '../ui/icons';
 
+// 🔹 Types
 interface DashboardNavbarProps {
     restaurantName?: string;
     ownerName?: string;
 }
 
+// 🔹 Component
 const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ restaurantName, ownerName }) => {
+    // 🔹 Handlers
     const handleLogout = async () => {
         try {
             const supabase = createClient();
@@ -20,6 +23,7 @@ const DashboardNavbar: React.FC<DashboardNavbarProps> = ({ restaurantName, owner
         }
     };
 
+    // 🔹 Render
     return (
         <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md py-4 shadow-sm border-b border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -5,11 +5,14 @@ import { createClient } from '../../lib/supabase';
 import Navbar from '../Navbar';
 import DashboardNavbar from '../dashboard/DashboardNavbar';
 
+// 🔹 Types
 interface UnifiedNavbarProps {
     pollId?: string;
 }
 
+// 🔹 Component
 const UnifiedNavbar: React.FC<UnifiedNavbarProps> = ({ pollId }) => {
+    // 🔹 State
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userData, setUserData] = useState<{
         restaurantName?: string;
@@ -17,6 +20,7 @@ const UnifiedNavbar: React.FC<UnifiedNavbarProps> = ({ pollId }) => {
     }>({});
     const [loading, setLoading] = useState(true);
 
+    // 🔹 Effects
     useEffect(() => {
         const checkAuth = async () => {
             try {
@@ -53,7 +57,7 @@ const UnifiedNavbar: React.FC<UnifiedNavbarProps> = ({ pollId }) => {
         checkAuth();
     }, []);
 
-    // Show nothing while loading to prevent flash
+    // 🔹 Render (Loading)
     if (loading) {
         return (
             <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md py-4 shadow-sm">
@@ -70,6 +74,7 @@ const UnifiedNavbar: React.FC<UnifiedNavbarProps> = ({ pollId }) => {
         );
     }
 
+    // 🔹 Render (Authenticated vs Guest)
     // Render appropriate navbar based on auth status
     if (isAuthenticated) {
         return (

@@ -1,4 +1,5 @@
-// Dashboard API Response Types
+// 🔹 Dashboard Response Types
+// Structure for dashboard API responses
 export interface DashboardResponse {
     owner: {
         name: string;
@@ -14,6 +15,8 @@ export interface DashboardResponse {
     historyPolls: Poll[];
 }
 
+// 🔹 Poll Entity Types
+// Definition of a Poll object in API context
 export interface Poll {
     id: string;
     title: string;
@@ -26,6 +29,7 @@ export interface Poll {
     image?: string;
 }
 
+// Definition of an individual item within a poll
 export interface PollItem {
     id: string;
     name: string;
@@ -36,17 +40,20 @@ export interface PollItem {
     percentage: number;
 }
 
-// Vote API Types
+// 🔹 Vote API Types
+// Payload for submitting a vote
 export interface VoteRequest {
     itemId: string;
 }
 
+// Response from vote submission
 export interface VoteResponse {
     success: boolean;
     error?: string;
 }
 
-// Poll Creation Types
+// 🔹 Poll Creation Types
+// Response after creating a new poll
 export interface CreatePollResponse {
     success: boolean;
     pollId?: string;

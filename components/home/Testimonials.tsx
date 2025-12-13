@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 
+// 🔹 Component
 const FAQ = () => {
+    // 🔹 State
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+    // 🔹 Data
     const faqs = [
         {
             question: "What is MenuFight?",
@@ -28,10 +31,12 @@ const FAQ = () => {
         }
     ];
 
+    // 🔹 Handlers
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
+    // 🔹 Render
     return (
         <section id="faq" className="py-24 bg-white">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

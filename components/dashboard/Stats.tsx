@@ -2,6 +2,7 @@
 import React from 'react';
 import { FireIcon, TrophyIcon, UsersIcon, TrendingUpIcon, CrownIcon } from '../ui/icons';
 
+// 🔹 Types
 interface StatsProps {
   stats?: {
     totalVotes: number;
@@ -10,7 +11,9 @@ interface StatsProps {
   };
 }
 
+// 🔹 Component
 const Stats: React.FC<StatsProps> = ({ stats }) => {
+  // 🔹 Data
   const data = [
     {
       label: 'Total Votes',
@@ -38,6 +41,7 @@ const Stats: React.FC<StatsProps> = ({ stats }) => {
     }
   ];
 
+  // 🔹 Render
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
       {data.map((stat, idx) => (

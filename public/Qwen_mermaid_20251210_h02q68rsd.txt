@@ -1,0 +1,9 @@
+graph LR
+  A[🏠 Home Page] --> B{User Type?}
+  B -->|Owner| C[🔐 Sign Up/Login]
+  B -->|Customer| D[🗳️ Vote Page]
+  C --> E[📊 Dashboard]
+  E --> F[➕ Create Poll]
+  F --> G[📈 View Results]
+  D --> H[✅ Cast Vote]
+  H --> I[📊 See Results]

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 
+// 🔹 Icons
 // Icons components defined locally for self-containment
 const UserIcon = ({ className }: { className?: string }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -21,11 +22,14 @@ const EnvelopeIcon = ({ className }: { className?: string }) => (
     </svg>
 );
 
+// 🔹 Types
 interface SettingsTabProps {
     data: any;
 }
 
+// 🔹 Component
 const SettingsTab: React.FC<SettingsTabProps> = ({ data }) => {
+    // 🔹 State
     // Initialize state with data or fallbacks
     // Note: data.owner.name from API is a fallback-heavy string. 
     // Ideally we would want the raw owner_name, but we can assume 'name' is the intended display name.
@@ -36,6 +40,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({ data }) => {
     const [isSaving, setIsSaving] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error' | ''; text: string }>({ type: '', text: '' });
 
+    // 🔹 Handlers
     const handleSave = async () => {
         setIsSaving(true);
         setMessage({ type: '', text: '' });
@@ -69,6 +74,7 @@ const SettingsTab: React.FC<SettingsTabProps> = ({ data }) => {
         }
     };
 
+    // 🔹 Render
     return (
         <div className="max-w-2xl animate-in slide-in-from-bottom-10 duration-500">
             <h2 className="text-2xl font-bold text-brand-black mb-8">Account Settings</h2>

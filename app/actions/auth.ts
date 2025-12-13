@@ -1,8 +1,10 @@
 'use server'
 
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
+// --- Login Action ---
 export async function login(formData: FormData) {
     const supabase = await createClient();
 
@@ -33,6 +35,7 @@ export async function login(formData: FormData) {
     return { success: true };
 }
 
+// --- Signup Action ---
 export async function signup(formData: FormData) {
     const supabase = await createClient();
 

@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import { ArrowRightIcon } from '../ui/icons';
 import { signup } from '@/app/actions/auth';
 
+// 🔹 Component
 const SignupForm = () => {
+  // 🔹 State
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 🔹 Handlers
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
@@ -44,6 +47,7 @@ const SignupForm = () => {
     }
   };
 
+  // 🔹 Render
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (

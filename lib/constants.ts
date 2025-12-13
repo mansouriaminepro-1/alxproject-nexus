@@ -1,7 +1,9 @@
-// API Configuration
+// 🔹 API Configuration
+// Base URL for API calls
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 
-// Routes
+// 🔹 Routes
+// Client-side route definitions
 export const ROUTES = {
     HOME: '/',
     DASHBOARD: '/dashboard',
@@ -12,7 +14,8 @@ export const ROUTES = {
     RESULTS: (id: string) => `/poll/${id}/results`,
 } as const;
 
-// API Endpoints
+// 🔹 API Endpoints
+// Server-side API route definitions
 export const API_ENDPOINTS = {
     DASHBOARD: '/api/dashboard',
     POLLS: '/api/polls',

@@ -1,3 +1,4 @@
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import {
@@ -9,6 +10,7 @@ import {
 import { applyRateLimit, getRateLimitHeaders } from '@/lib/middleware/rateLimit';
 import { validateImageFile, sanitizeFilename, getFileExtension } from '@/lib/fileValidation';
 
+// --- POST Handler ---
 export async function POST(request: Request) {
   // Apply rate limiting (5 requests per hour)
   const rateLimitResponse = applyRateLimit(request, 'pollCreate');

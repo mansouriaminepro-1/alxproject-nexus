@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { BarChartIcon, CalendarIcon, LinkIcon, TrashIcon, TrophyIcon, FireIcon, CheckIcon } from '../ui/icons';
 
+// 🔹 Types
 interface PollItem {
   id: string;
   name: string;
@@ -26,11 +27,14 @@ interface RecentPollsProps {
   restaurantName?: string;
 }
 
+// 🔹 Component
 const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
+  // 🔹 State
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [pollToDelete, setPollToDelete] = useState<string | null>(null); // New state for modal
 
+  // 🔹 Handlers
   const handleShare = (e: React.MouseEvent, pollId: string) => {
     e.preventDefault();
     e.stopPropagation();
@@ -69,10 +73,10 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
     } catch (error) {
       console.error('Delete error:', error);
       alert('An error occurred while deleting.');
-      setIsDeleting(null);
     }
   };
 
+  // 🔹 Render (Empty State)
   if (!polls || polls.length === 0) {
     return (
       <div className="mb-12 p-8 bg-white rounded-[2rem] border border-dashed border-gray-200 text-center shadow-soft">
@@ -81,6 +85,7 @@ const RecentPolls: React.FC<RecentPollsProps> = ({ polls, restaurantName }) => {
     );
   }
 
+  // 🔹 Render (Main)
   return (
     <div className="mb-12">
       <div className="flex justify-between items-end mb-8">

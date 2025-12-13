@@ -1,8 +1,9 @@
-
+// --- Imports ---
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import { applyRateLimit } from '@/lib/middleware/rateLimit';
 
+// --- POST Handler ---
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   // Apply rate limiting (10 requests per hour)
   const rateLimitResponse = applyRateLimit(request, 'vote');

@@ -1,12 +1,15 @@
 "use client";
+// --- Imports ---
 import React, { useState, useEffect } from 'react';
-import { TrophyIcon, FireIcon, ShareIcon, CheckIcon, ArrowRightIcon, MapPinIcon, GlobeIcon, XIcon } from '../../../components/ui/icons';
+import { TrophyIcon, FireIcon, ShareIcon, CheckIcon, ArrowRightIcon, MapPinIcon, GlobeIcon } from '../../../components/ui/icons';
 import { PollData } from '../../../types/poll';
 import { createClient } from '../../../lib/supabase';
 import Navbar from '../../../components/Navbar';
 import DashboardNavbar from '../../../components/dashboard/DashboardNavbar';
 
+// --- Page Component ---
 export default function VotePage() {
+    // --- State ---
     const [poll, setPoll] = useState<PollData | null>(null);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [hasVoted, setHasVoted] = useState(false);
@@ -21,6 +24,7 @@ export default function VotePage() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userData, setUserData] = useState<any>(null);
 
+    // --- Handlers ---
     // Share functionality
     const handleShare = () => {
         const url = window.location.href;
@@ -30,6 +34,7 @@ export default function VotePage() {
         });
     };
 
+    // --- Effects ---
     // Check authentication status
     useEffect(() => {
         const checkAuth = async () => {
@@ -161,6 +166,7 @@ export default function VotePage() {
         </div>
     );
 
+    // --- Render ---
     return (
         <>
             {/* Conditional Navbar */}
@@ -324,7 +330,7 @@ export default function VotePage() {
                                         </>
                                     )}
                                 </button>
-                                <a href="/" className="bg-white border-2 border-gray-200 text-brand-black px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:border-brand-black transition-colors">
+                                <a href="/dashboard" className="bg-white border-2 border-gray-200 text-brand-black px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 hover:border-brand-black transition-colors">
                                     <ArrowRightIcon className="w-4 h-4 rotate-180" /> Back to Home
                                 </a>
                             </div>

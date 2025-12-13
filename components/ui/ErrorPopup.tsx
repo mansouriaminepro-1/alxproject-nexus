@@ -1,6 +1,7 @@
 import React from 'react';
 import { XIcon } from './icons';
 
+// 🔹 Types
 interface ErrorPopupProps {
     isOpen: boolean;
     onClose: () => void;
@@ -8,14 +9,17 @@ interface ErrorPopupProps {
     type?: 'error' | 'warning';
 }
 
+// 🔹 Component
 const ErrorPopup: React.FC<ErrorPopupProps> = ({
     isOpen,
     onClose,
     message,
     type = 'error'
 }) => {
+    // 🔹 Render Logic
     if (!isOpen) return null;
 
+    // 🔹 UI Render
     return (
         <>
             {/* Backdrop */}

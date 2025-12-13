@@ -2,11 +2,14 @@ import React from 'react';
 import Stats from '../Stats';
 import RecentPolls from '../RecentPolls';
 
+// 🔹 Types
 interface OverviewTabProps {
     data: any;
 }
 
+// 🔹 Component
 const OverviewTab: React.FC<OverviewTabProps> = ({ data }) => {
+    // 🔹 Render
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* Stats Row */}
