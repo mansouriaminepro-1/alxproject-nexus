@@ -134,7 +134,7 @@ graph LR
 
 ## 🚀 Live Demo
 
-**🌐 [View Live Application]([https://menufight.vercel.app/](https://alxproject-nexus.vercel.app))** 
+**🌐 [View Live Application](https://alxproject-nexus.vercel.app) ** 
 
 ---
 
