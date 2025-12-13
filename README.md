@@ -13,8 +13,7 @@
 >
 > Menu Fight is the A/B testing platform for restaurants to predict dish success before launch.
 
-[🚀 Live Demo](#-live-demo) • [📖 Documentation](#-overview) • [🛠️ Installation](#-installation-guide) • [🤝 Contributing](#-contributing)
-
+[🚀 Live Demo](https://alxproject-nexus.vercel.app) • [📖 Documentation](#-overview) • [🛠️ Installation](#-installation-guide) • 
 </div>
 
 ---
@@ -45,7 +44,7 @@
 
 ## 📖 Overview
 
-Menu Fight is a modern web application designed to help restaurants, cloud kitchens, and food brands validate new menu items before investing in full-scale production. By leveraging A/B testing methodology, Menu Fight enables data-driven decision-making, reducing waste and increasing the success rate of new menu launches.
+Menu Fight is a POLL web application designed to help restaurants, cloud kitchens, and food brands validate new menu items before investing in full-scale production. By leveraging A/B testing methodology, Menu Fight enables data-driven decision-making, reducing waste and increasing the success rate of new menu launches.
 
 ---
 
@@ -135,7 +134,7 @@ graph LR
 
 ## 🚀 Live Demo
 
-**🌐 [View Live Application](https://menufight.vercel.app/)** *(Replace with your actual deployment URL)*
+**🌐 [View Live Application]([https://menufight.vercel.app/](https://alxproject-nexus.vercel.app))** 
 
 ---
 
